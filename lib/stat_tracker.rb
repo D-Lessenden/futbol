@@ -1,7 +1,9 @@
 require "CSV"
-require "./lib/games"
+require_relative "./games"
+require_relative "./game_teams"
+
 class StatTracker
-  attr_reader :games
+  attr_reader :games, :game_teams
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -9,7 +11,7 @@ class StatTracker
 
   def initialize(locations)
     @games ||= turn_games_csv_data_into_games_objects(locations[:games])
-    @game_teams ||= turn_games_csv_data_into_games_objects(locations[:game_teams])
+    @game_teams ||= turn_games_csv_data_into_game_teams_objects(locations[:game_teams])
     # @teams = locations[:teams]
     # @game_teams = locations[:game_teams]
   end
@@ -29,7 +31,6 @@ class StatTracker
       game_teams_objects_collection << GameTeams.new(row)
     end
     game_teams_objects_collection
-    # require "pry"; binding.pry
   end
 
   def highest_total_score
@@ -47,8 +48,38 @@ class StatTracker
   end
 
   def percentage_home_wins
-    # binding.pry
-    @game_teams
+    home_games = @game_teams.select do |game| 
+      game.hoa == "home"
+    end
+    home_wins = @game_teams.select do |game| 
+      game.result == "WIN" && game.hoa == "home"
+    end
+    (home_wins.count / home_games.count.to_f).round(2)
+  end
+
+  def percentage_visitor_wins
+    visitor_games = @game_teams.select do |game| 
+      game.hoa == "away"
+    end
+    visitor_wins = @game_teams.select do |game| 
+      game.result == "WIN" && game.hoa == "away"
+    end
+    (visitor_wins.count / visitor_games.count.to_f).round(2)
+  end
+
+  def percentage_tie
+    game_ties = @game_teams.select do |game|
+      game.result == "TIE"
+    end
+   (game_ties.count / total_games.to_f).round(2)
+  end
+
+  def total_games 
+    games = []
+    @game_teams.map do |game|
+      games << game.result
+    end
+    games.count 
   end
 
 end

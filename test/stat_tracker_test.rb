@@ -35,9 +35,18 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_can_find_percentage_home_wins
-    
+
     assert_equal 0.44, @stat_tracker.percentage_home_wins
   end
+
+  def test_can_find_percentage_visitor_wins
+
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end 
+  def test_can_find_percentage_ties
+    
+    assert_equal 0.20, @stat_tracker.percentage_tie
+  end 
 end
 
 # game.find {|game| game["date_time"] == "5/16/13"; return game["venue"] }
