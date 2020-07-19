@@ -1,6 +1,5 @@
 require "CSV"
-require "./lib/game"
-## => Arique's set up
+require "./lib/games"
 class StatTracker
   attr_reader :games
 
@@ -22,6 +21,7 @@ class StatTracker
     games_objects_collection
     # require "pry"; binding.pry
   end
+
   def highest_total_score
     output = @games.max_by do |game|
       game.total_game_score
