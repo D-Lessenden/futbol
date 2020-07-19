@@ -28,31 +28,11 @@ class StatTracker
     end
     output.total_game_score
   end
+
+  def lowest_total_score
+    output = @games.min_by do |game|
+      game.total_game_score
+    end
+    output.total_game_score
+  end
 end
-
-# require "CSV"
-# require_relative "./game"
-
-# class StatTracker
-#   ## This -below- is the class method (indicated by the self.)
-#   def self.from_csv(locations)   ##locations is a hash of the file paths.
-#     all_games = []
-#     games = CSV.foreach(locations[:games], :headers => true) do |row| ## this is our array of games
-#     all_games << Game.new(row)
-#     end
-#     StatTracker.new(all_games) ## this is creating an instance of the class
-#   end
-
-#   def initialize(games)
-#     @games = games.to_a
-#   end
-
-  # def highest_total_score
-  #   #  @games[0]["home_goals"].to_i + @games[0]["away_goals"].to_i
-  #   output = @games.max_by do |game|
-  #     game.total_game_score
-  #   end
-  #   output.total_game_score
-  # end
-
-# end

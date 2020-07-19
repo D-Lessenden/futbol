@@ -1,31 +1,37 @@
 {
   "Unit Tests": {
     "coverage": {
-      "/Users/ariqueaguilar/turing/mod_1/futbol/lib/stat_tracker.rb": {
+      "/Users/nicomacbook/turing/1module/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
           1,
-          null,
           1,
           1,
           null,
           1,
-          2,
+          3,
           null,
           null,
           1,
-          2,
+          3,
           null,
           null,
           null,
           null,
           1,
-          2,
-          2,
-          14882,
+          3,
+          3,
+          22323,
           null,
-          2,
+          3,
           null,
+          null,
+          null,
+          1,
+          1,
+          7441,
+          null,
+          1,
           null,
           null,
           1,
@@ -37,7 +43,7 @@
           null
         ]
       },
-      "/Users/ariqueaguilar/turing/mod_1/futbol/lib/games.rb": {
+      "/Users/nicomacbook/turing/1module/futbol/lib/games.rb": {
         "lines": [
           null,
           1,
@@ -53,26 +59,26 @@
           null,
           null,
           1,
-          14882,
-          14882,
-          14882,
-          14882,
-          14882,
-          14882,
-          14882,
-          14882,
-          14882,
-          14882,
+          22323,
+          22323,
+          22323,
+          22323,
+          22323,
+          22323,
+          22323,
+          22323,
+          22323,
+          22323,
           null,
           null,
           1,
-          7442,
+          14884,
           null,
           null,
           null
         ]
       }
     },
-    "timestamp": 1595112956
+    "timestamp": 1595181574
   }
 }
