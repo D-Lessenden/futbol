@@ -67,7 +67,7 @@ class StatTracker
     (visitor_wins.count / visitor_games.count.to_f).round(2)
   end
 
-  def percentage_tie
+  def percentage_ties
     game_ties = @game_teams.select do |game|
       game.result == "TIE"
     end
@@ -80,6 +80,16 @@ class StatTracker
       games << game.result
     end
     games.count 
+  end
+
+  def count_of_games_by_season
+        
+    games_by_season = @games.group_by {|game| game.season}
+
+    game_count_per_season = {}
+    games_by_season.map {|season, game| game_count_per_season[season] = game.count}
+    
+    game_count_per_season
   end
 
 end
