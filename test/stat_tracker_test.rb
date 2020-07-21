@@ -1,7 +1,4 @@
 require './test/test_helper'
-require "./lib/stat_tracker"
-require "./lib/games"
-require "pry"
 
 class StatTrackerTest < MiniTest::Test
 
@@ -20,7 +17,6 @@ class StatTrackerTest < MiniTest::Test
   end
 
   def test_it_exist
-
     assert_instance_of StatTracker, @stat_tracker
   end
 
@@ -52,6 +48,9 @@ class StatTrackerTest < MiniTest::Test
     
     expected = {"20122013"=>806, "20162017"=>1317, "20142015"=>1319, "20152016"=>1321, "20132014"=>1323, "20172018"=>1355}
     assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+  def test_best_offense
+    assert_equal "Reign FC", @stat_tracker.best_offense
   end
 end
 

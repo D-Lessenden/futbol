@@ -1,9 +1,11 @@
 require "CSV"
-require_relative "./games"
-require_relative "./game_teams"
+require "./lib/games"
+require "./lib/teams"
+require "./lib/game_teams"
+require "./lib/teams"
 
 class StatTracker
-  attr_reader :games, :game_teams
+  attr_reader :games, :game_teams, :teams
 
   def self.from_csv(locations)
     StatTracker.new(locations)
@@ -22,7 +24,6 @@ class StatTracker
       games_objects_collection << Games.new(row)
     end
     games_objects_collection
-    # require "pry"; binding.pry
   end
 
   def turn_games_csv_data_into_game_teams_objects(game_teams_csv_data)
@@ -35,9 +36,53 @@ class StatTracker
 
   def highest_total_score
     output = @games.max_by do |game|
-      game.total_game_score
+      game.away_goals + game.home_goals
     end
-    output.total_game_score
+    output.away_goals + output.home_goals
+  end
+
+  def lowest_total_score
+    output = @games.min_by do |game|
+      game.away_goals + game.home_goals
+    end
+    output.away_goals + output.home_goals
+  end
+  
+  def percentage_home_wins
+    total_home_wins = @games.select do |game|
+      game.home_goals > game.away_goals
+    end
+    (total_home_wins.length.to_f / @games.length).round(2)
+  end
+
+  def average_goals_per_game
+    games_count = @games.count.to_f
+    sum_of_goals = (@games.map {|game| game.total_game_score}.to_a).sum
+
+    sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
+    sum_of_goals_divided_by_game_count
+  end
+  
+
+  def average_goals_by_season
+    games_by_season = @games.group_by {|game| game.season} ##hash of games by season
+    games_by_season.delete_if { |key, value| key.nil? || value.nil? } 
+
+    goals_per_season = {} ##hash of total goals by season
+    games_by_season.map do |season, games| 
+      goals_per_season[season] = games.sum do |game| 
+        game.away_goals + game.home_goals
+      end
+    end 
+
+    avg_goals_per_season = {}
+    goals_per_season.each do |season, goals| 
+      division = (goals.to_f / count_of_games_by_season[season] ).round(2)
+      avg_goals_per_season[season] = division
+    end
+
+    avg_goals_per_season
+
   end
 
   def lowest_total_score
@@ -90,6 +135,22 @@ class StatTracker
     games_by_season.map {|season, game| game_count_per_season[season] = game.count}
     
     game_count_per_season
+  end
+  def best_offense ##Name of the team with the highest average number of goals scored per game across all seasons.
+    team_by_id = @game_teams.group_by do |team|
+      team.team_id
+    end
+    total_games_by_id = {}
+    team_by_id.map { |id, games| total_games_by_id[id] = games.length}
+    total_goals_by_id = {}
+    team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
+    average_goals_all_seasons_by_id = {}
+    total_goals_by_id.each do |id, goals|
+      average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
+    end
+    highest = average_goals_all_seasons_by_id.max_by {|id, avg| avg}
+    best_offence_team = @teams.find {|team| team.teamname if team.team_id == highest[0]}.teamname
+    best_offence_team
   end
 
 end
