@@ -13,9 +13,8 @@ class StatTracker
 
   def initialize(locations)
     @games ||= turn_games_csv_data_into_games_objects(locations[:games])
-    @game_teams ||= turn_games_csv_data_into_game_teams_objects(locations[:game_teams])
-    # @teams = locations[:teams]
-    # @game_teams = locations[:game_teams]
+    @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
+    @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
   end
 
   def turn_games_csv_data_into_games_objects(games_csv_data)
@@ -26,7 +25,15 @@ class StatTracker
     games_objects_collection
   end
 
-  def turn_games_csv_data_into_game_teams_objects(game_teams_csv_data)
+  def turn_teams_csv_data_into_teams_objects(teams_csv_data)
+    teams_objects_collection = []
+    CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol) do |row|
+      teams_objects_collection << Teams.new(row)
+    end
+    teams_objects_collection
+  end
+
+  def turn_game_teams_csv_data_into_game_teams_objects(game_teams_csv_data)
     game_teams_objects_collection = []
     CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol) do |row|
       game_teams_objects_collection << GameTeams.new(row)
@@ -49,15 +56,22 @@ class StatTracker
   end
   
   def percentage_home_wins
-    total_home_wins = @games.select do |game|
-      game.home_goals > game.away_goals
+    home_games = @game_teams.select do |game| 
+      game.hoa == "home"
     end
-    (total_home_wins.length.to_f / @games.length).round(2)
+    home_wins = @game_teams.select do |game| 
+      game.result == "WIN" && game.hoa == "home"
+    end
+    (home_wins.count / home_games.count.to_f).round(2) ##Nico. Corrected code so it returns .44 as per spec harness instead of .43. Left original code commented below. 
+    # total_home_wins = @games.select do |game|
+    #   game.home_goals > game.away_goals
+    # end
+    # (total_home_wins.length.to_f / @games.length).round(2)
   end
 
   def average_goals_per_game
     games_count = @games.count.to_f
-    sum_of_goals = (@games.map {|game| game.total_game_score}.to_a).sum
+    sum_of_goals = (@games.map {|game| game.home_goals + game.away_goals}.to_a).sum ##Nico. Added game.home_goals + game.away_goals so test passes after we moved helper method from games.rb.
 
     sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
     sum_of_goals_divided_by_game_count
@@ -85,72 +99,110 @@ class StatTracker
 
   end
 
-  def lowest_total_score
-    output = @games.min_by do |game|
-      game.total_game_score
-    end
-    output.total_game_score
-  end
-
-  def percentage_home_wins
-    home_games = @game_teams.select do |game| 
-      game.hoa == "home"
-    end
-    home_wins = @game_teams.select do |game| 
-      game.result == "WIN" && game.hoa == "home"
-    end
-    (home_wins.count / home_games.count.to_f).round(2)
-  end
-
   def percentage_visitor_wins
-    visitor_games = @game_teams.select do |game| 
-      game.hoa == "away"
+    total_visitor_wins = @games.select do |game|
+      game.away_goals > game.home_goals
     end
-    visitor_wins = @game_teams.select do |game| 
-      game.result == "WIN" && game.hoa == "away"
-    end
-    (visitor_wins.count / visitor_games.count.to_f).round(2)
+    (total_visitor_wins.length.to_f / @games.length).round(2)
   end
-
-  def percentage_ties
+    
+   def percentage_tie
     game_ties = @game_teams.select do |game|
       game.result == "TIE"
     end
-   (game_ties.count / total_games.to_f).round(2)
+    (game_ties.count / @game_teams.count.to_f).round(2)
   end
-
-  def total_games 
-    games = []
-    @game_teams.map do |game|
-      games << game.result
-    end
-    games.count 
-  end
-
+  
   def count_of_games_by_season
-        
-    games_by_season = @games.group_by {|game| game.season}
+  games_by_season = @games.group_by {|game| game.season}
+  game_count_per_season = {}
+  games_by_season.map {|season, game| game_count_per_season[season] = game.count}
+  game_count_per_season.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.
+  end
 
-    game_count_per_season = {}
-    games_by_season.map {|season, game| game_count_per_season[season] = game.count}
+  def lowest_scoring_home_team
+    home_team = @games.group_by do |game|
+      game.home_team_id
+    end
+    goals = {}
+    home_team.each do |team_id, games|
+      goal_count = 0
+      games.each do |game|
+          goal_count += game.home_goals
+      end
+    average_goals = goal_count / games.count.to_f
+    goals[team_id] = average_goals
+    end
+      goals.delete_if { |key, value| key.nil? || value.nil? } ## Nico. Added line here to remove nil ouput. Now passes test.It passes in Daniel's without delete_if. Question for Tim.
+      id = goals.min_by {|team, num_of_goals| num_of_goals}
+      @teams.find {|team| team.team_id == id[0]}.teamname
+  end
+  
+  def winningest_coach(season) 
+    ### Name of the Coach with the best win percentage for the season
+    ## 1 - from games class create a hash with a season => games pair
+    # find games by coach
+    ## find games won by coach
+    ## find Name of Coach with highest percentage
+      
     
-    game_count_per_season
-  end
-  def best_offense ##Name of the team with the highest average number of goals scored per game across all seasons.
-    team_by_id = @game_teams.group_by do |team|
-      team.team_id
+    games_by_season = @games.group_by {|game| game.season}.delete_if { |key, value| key.nil? || value.nil? }
+
+    game_ids_by_season = {}
+    games_by_season.map do |season, games|
+      x = games.map {|game| game.game_id}
+      game_ids_by_season[season] = x
     end
-    total_games_by_id = {}
-    team_by_id.map { |id, games| total_games_by_id[id] = games.length}
-    total_goals_by_id = {}
-    team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
-    average_goals_all_seasons_by_id = {}
-    total_goals_by_id.each do |id, goals|
-      average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
-    end
-    highest = average_goals_all_seasons_by_id.max_by {|id, avg| avg}
-    best_offence_team = @teams.find {|team| team.teamname if team.team_id == highest[0]}.teamname
-    best_offence_team
+    
+    game_ids_by_season["20122013"]
+    # .delete_if { |key, value| key.nil? || value.nil? }  
+    
+  
   end
+
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+# def best_offense
+#   team_by_id = @game_teams.group_by do |team|
+#     team.team_id
+#   end
+#   total_games_by_id = {}
+#   team_by_id.map { |id, games| total_games_by_id[id] = games.length}
+#   total_goals_by_id = {}
+#   team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
+#   average_goals_all_seasons_by_id = {}
+#   total_goals_by_id.each do |id, goals|
+#     average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
+#   end
+#   highest = average_goals_all_seasons_by_id.max_by {|id, avg| avg}
+#   best_offense = @teams.find {|team| team.teamname if team.team_id == highest[0]}.teamname
+#   best_offense
+# end
+# def worst_offense
+#   team_by_id = @game_teams.group_by do |team|
+#     team.team_id
+#   end
+#   total_games_by_id = {}
+#   team_by_id.map { |id, games| total_games_by_id[id] = games.length}
+#   total_goals_by_id = {}
+#   team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
+#   average_goals_all_seasons_by_id = {}
+#   total_goals_by_id.each do |id, goals|
+#     average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
+#   end
+#   lowest = average_goals_all_seasons_by_id.min_by {|id, avg| avg}
+#   worst_offense = @teams.find {|team| team.teamname if team.team_id == lowest[0]}.teamname
+#   worst_offense
+# end
