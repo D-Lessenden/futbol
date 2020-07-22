@@ -190,6 +190,62 @@ end
         id = goals.max_by {|key, value| value}
         @teams.find {|team| team.team_id == id[0]}.teamname
       end
+      #	Name of the Coach with the
+      #best win percentage for the season
+      #create a hash of seasons the values are a Hash
+      #keys are coach and values are total games of coach
+      def winningest_coach(season)
+        #binding.pry
+        games_by_season = @games.group_by {|game| game.season}
+        game_ids_by_season = {}
+          games_by_season.map do |season, games|
+            game_ids_by_season[season] = games.map {|game| game.game_id}
+          end
+          coaches = @game_teams.group_by {|game| game.head_coach}
+          seasons = Hash.new([])
+          game_ids_by_season.each do |k, v|
+            binding.pry
+            @game_teams.each do |game|
+              binding.pry
+              if game.game_id == v
+                seasons[k] += game
+              end
+            end
+          end
+
+p seasons
 
 
-end
+            #seasons[k] = game if game.(v)
+          # season is the key
+          # value {coach => games}
+        #  {season: {coach: games}}
+
+
+
+
+
+
+          # hash = {}
+          # games_by_season.each do |k, v|
+          #   @game_teams.each do |game|
+          #     hash[k] = [game] if game.game_id == k.game_id
+          # season_and_coaches = {}
+          # game_ids_by_season do |k, v|
+          #   @game_teams.map do |game|
+          # array = []
+          # if game.game_id == "2012030221"
+          #   array << game
+          # end
+
+
+
+
+
+
+
+
+      end#method
+
+
+end#class
