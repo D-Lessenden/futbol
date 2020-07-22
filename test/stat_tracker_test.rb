@@ -105,8 +105,12 @@ class StatTrackerTest < MiniTest::Test
     assert_equal 32, @stat_tracker.overall_average_scores_by_away_team.count
     assert_equal Hash, @stat_tracker.overall_average_scores_by_away_team.class
     assert_equal 1, @stat_tracker.overall_average_scores_by_away_team["6"]
-
   end
 
+  def test_find_winningest_coach
+    #binding.pry
+    assert_equal "Claude Julien", @stat_tracker.winningest_coach("20132014")
+    assert_equal "Alain Vigneault", @stat_tracker.winningest_coach("20142015")
+  end
 
 end
