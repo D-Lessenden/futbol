@@ -141,23 +141,70 @@ class StatTracker
   def winningest_coach(season) 
     ### Name of the Coach with the best win percentage for the season
     ## 1 - from games class create a hash with a season => games pair
-    # find games by coach
-    ## find games won by coach
-    ## find Name of Coach with highest percentage
+    ## 2 - From games_by_season create a hash with season => game_id pairs so we can use it to talk to game_teams class.
+    ## 3 - Using #2 and game_teams. Create a hash with coach games per season (games_per_season_by_coach = {"Season" => {"coach name" => [game instances...]}})
+    ## 3.5 create a hash with coach name => total games-results per season (results_by_coach = {"coach name" => {win: 100, loss: 200, tie: 2}})
+    ## 4 - Extract sum of all games and percentage of wins.
+    ## 5 - find Name of Coach with highest percentage
       
     
+    #1
     games_by_season = @games.group_by {|game| game.season}.delete_if { |key, value| key.nil? || value.nil? }
 
+    #2
     game_ids_by_season = {}
     games_by_season.map do |season, games|
       x = games.map {|game| game.game_id}
       game_ids_by_season[season] = x
     end
-    
     game_ids_by_season["20122013"]
-    # .delete_if { |key, value| key.nil? || value.nil? }  
+
+    #3
+    team_games_by_season = {}
+    game_ids_by_season.map do |season, game_ids|
+      season_games = @game_teams.map do |game|
+        if game_ids.include?(game.game_id)
+          game
+        end
+      end
+      team_games_by_season[season] = season_games
+    end
+
+    # 3.25
+    ## games_per_season_by_coach = {"coach name" => [game instances...]}
+    season_games = team_games_by_season.map {|season, games| games}.flatten.compact
+
+    games_per_season_by_coach = season_games.group_by do |game| 
+      unless game == nil
+        game.head_coach
+      end
+    end
+
+    #3.5 create a hash with coach name => total games-results per season (results_by_coach = {"coach name" => {win: 100, loss: 200, tie: 2}})
+
     
-  
+
+    coach_name_and_results = {}
+
+    games_per_season_by_coach.map do |coach, games|
+      results_by_coach = {win: 0, loss: 0, tie: 0}
+      games.map do |game|
+        if game.result == "WIN"
+          results_by_coach[:win] = results_by_coach[:win] += 1
+        elsif game.result == "LOSS"
+          results_by_coach[:loss] = results_by_coach[:loss] += 1
+        elsif game.result == "TIE"
+            results_by_coach[:tie] = results_by_coach[:tie] += 1
+        end
+      coach_name_and_results[coach] = results_by_coach
+      end
+    end
+    binding.pry
+    # 
+
+    ## 4 - Extract sum of all games and percentage of wins.
+
+    
   end
 
 
