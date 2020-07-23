@@ -208,6 +208,8 @@ class StatTracker
   
     ## 5 - find Name of Coach with highest percentage. winningest_coach("20132014")
    
+    # coach_results.max_by(&:results).first
+
     coach_results.max_by do |coach, results|
       results[:win_percentage] 
     end.first
