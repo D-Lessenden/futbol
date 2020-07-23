@@ -138,28 +138,25 @@ class StatTracker
       @teams.find {|team| team.team_id == id[0]}.teamname
   end
   
-  def winningest_coach(season) 
-    ### Name of the Coach with the best win percentage for the season
-    ## 1 - from games class create a hash with a season => games pair
-    ## 2 - From games_by_season create a hash with season => game_id pairs so we can use it to talk to game_teams class.
-    ## 3 - Using #2 and game_teams. Create a hash with coach games per season (games_per_season_by_coach = {"Season" => {"coach name" => [game instances...]}})
-    ## 3.5 create a hash with coach name => total games-results per season (results_by_coach = {"coach name" => {win: 100, loss: 200, tie: 2}})
-    ## 4 - Extract sum of all games and percentage of wins.
-    ## 5 - find Name of Coach with highest percentage
-      
+  def winningest_coach(season)      
     
-    #1
+    #1 - from games class create a hash with a season => games pair
     games_by_season = @games.group_by {|game| game.season}.delete_if { |key, value| key.nil? || value.nil? }
 
-    #2
-    game_ids_by_season = {}
-    games_by_season.map do |season, games|
-      x = games.map {|game| game.game_id}
-      game_ids_by_season[season] = x
+    #2 - From games_by_season create a hash with season => game_id pairs so we can use it to talk to game_teams class.
+    filter_seasons = {}
+    games_by_season.each do |season_key, games|
+      if season_key == season
+      filter_seasons[season_key] = games
+      end
     end
-    game_ids_by_season["20122013"]
 
-    #3
+    game_ids_by_season = {}
+    filter_seasons.map do |season, games|
+      game_id = games.map {|game| game.game_id}
+      game_ids_by_season[season] = game_id
+    end
+    #3 - Using #2 and game_teams. Create a hash with coach games per season (games_per_season_by_coach = {"Season" => {"coach name" => [game instances...]}})
     team_games_by_season = {}
     game_ids_by_season.map do |season, game_ids|
       season_games = @game_teams.map do |game|
@@ -182,8 +179,6 @@ class StatTracker
 
     #3.5 create a hash with coach name => total games-results per season (results_by_coach = {"coach name" => {win: 100, loss: 200, tie: 2}})
 
-    
-
     coach_name_and_results = {}
 
     games_per_season_by_coach.map do |coach, games|
@@ -199,57 +194,25 @@ class StatTracker
       coach_name_and_results[coach] = results_by_coach
       end
     end
-    binding.pry
     # 
 
     ## 4 - Extract sum of all games and percentage of wins.
-
+    # coach_name_and_results["John Tortorella"].values.sum
+    coach_results = {}
     
+    coach_name_and_results.each do |coach, results|
+      result_sum =  results.values.sum
+      wins_percentage = (results[:win] * 100) / result_sum
+      coach_results[coach] = {:results => results, :result_sum => result_sum, :win_percentage => wins_percentage}
+    end
+  
+    ## 5 - find Name of Coach with highest percentage. winningest_coach("20132014")
+   
+    coach_results.max_by do |coach, results|
+      results[:win_percentage] 
+    end.first
+
   end
 
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-# def best_offense
-#   team_by_id = @game_teams.group_by do |team|
-#     team.team_id
-#   end
-#   total_games_by_id = {}
-#   team_by_id.map { |id, games| total_games_by_id[id] = games.length}
-#   total_goals_by_id = {}
-#   team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
-#   average_goals_all_seasons_by_id = {}
-#   total_goals_by_id.each do |id, goals|
-#     average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
-#   end
-#   highest = average_goals_all_seasons_by_id.max_by {|id, avg| avg}
-#   best_offense = @teams.find {|team| team.teamname if team.team_id == highest[0]}.teamname
-#   best_offense
-# end
-# def worst_offense
-#   team_by_id = @game_teams.group_by do |team|
-#     team.team_id
-#   end
-#   total_games_by_id = {}
-#   team_by_id.map { |id, games| total_games_by_id[id] = games.length}
-#   total_goals_by_id = {}
-#   team_by_id.map { |id, games| total_goals_by_id[id] = games.sum {|game| game.goals}}
-#   average_goals_all_seasons_by_id = {}
-#   total_goals_by_id.each do |id, goals|
-#     average_goals_all_seasons_by_id[id] = (goals.to_f / total_games_by_id[id] ).round(2)
-#   end
-#   lowest = average_goals_all_seasons_by_id.min_by {|id, avg| avg}
-#   worst_offense = @teams.find {|team| team.teamname if team.team_id == lowest[0]}.teamname
-#   worst_offense
-# end
