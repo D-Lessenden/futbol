@@ -90,8 +90,6 @@ class StatTracker
     @teams.find {|team| team.team_id == id[0]}.teamname
   end
 
-# ###########################
-
   def season_hash
     season_hash = @games.group_by {|games| games.season}
   end
@@ -145,13 +143,13 @@ class StatTracker
       win_hash[season] = [count, total]
         end
       end
-  best = win_hash.max_by do |season, games|
-    win_hash[season].first / win_hash[season].last.to_f
-  end
-  math = best[0].to_i
-  math += 1
-  math.to_s
-  answer = best.first + "#{math}"
+    best = win_hash.max_by do |season, games|
+      win_hash[season].first / win_hash[season].last.to_f
+    end
+      math = best[0].to_i
+      math += 1
+      math.to_s
+      answer = best.first + "#{math}"
   end#method
 
   def worst_season(teamID)
@@ -168,21 +166,21 @@ class StatTracker
         end
       win_hash[season] = [count, total]
     end
-  end
-  worst = win_hash.min_by do |season, games|
-    win_hash[season].first / win_hash[season].last.to_f
-  end
-  math = worst[0].to_i
-  math += 1
-  math.to_s
-  worst = worst.first + "#{math}"
-  #I know these last 4 lines look odd
-  #I needed to convert a 4digit season id to a 8 digit id
+    end
+    worst = win_hash.min_by do |season, games|
+      win_hash[season].first / win_hash[season].last.to_f
+    end
+      math = worst[0].to_i
+      math += 1
+      math.to_s
+      worst = worst.first + "#{math}"
+      #I know these last 4 lines look odd
+      #I needed to convert a 4digit season id to a 8 digit id
   end#method
-#####################
 
-def games_per_season_per_team(seasonID)
-  games_in_season = @games.select { |game| game.season == seasonID }
+
+  def games_per_season_per_team(seasonID)
+    games_in_season = @games.select { |game| game.season == seasonID }
 
     game_ids_in_season = games_in_season.map do |game|
        game.game_id
@@ -195,15 +193,15 @@ def games_per_season_per_team(seasonID)
      end
    end
 
-  def team_tackles(seasonID)
-    team_tackles = Hash.new(0)
-      games_per_season_per_team(seasonID).each do |team, games|
-        games.each do |game|
-          team_tackles[game.team_id] += game.tackles
+   def team_tackles(seasonID)
+      team_tackles = Hash.new(0)
+        games_per_season_per_team(seasonID).each do |team, games|
+          games.each do |game|
+            team_tackles[game.team_id] += game.tackles
+          end
         end
+        team_tackles
       end
-      team_tackles
-  end
 
   def fewest_tackles(seasonID)
     games_per_season_per_team(seasonID)
@@ -217,60 +215,5 @@ def games_per_season_per_team(seasonID)
    team_tackles(seasonID)
    most = team_tackles(seasonID).max_by {|k, v| v}
    @teams.find {|team| team.team_id == most.first}.teamname
-end#tackle method
-
- def most_tackles(seasonID)
-  games_in_season = @games.select { |game| game.season == seasonID }
-  game_ids_in_season = games_in_season.map do |game|
-     game.game_id
-   end
-
-   game_teams_in_season = @game_teams.select do |game_team|
-     game_ids_in_season.include?(game_team.game_id)
-   end
-
-   games_per_season_per_team = game_teams_in_season.group_by do |game|
-     game.team_id
-   end
-
-  team_tackles = Hash.new(0)
-    games_per_season_per_team.each do |team, games|
-      games.each do |game|
-        team_tackles[game.team_id] += game.tackles
-      end
-    end
-
-  most = team_tackles.max_by {|k, v| v}
-  @teams.find {|team| team.team_id == most.first}.teamname
-end#tackle method
-
-def fewest_tackles(seasonID)
- games_in_season = @games.select { |game| game.season == seasonID }
- game_ids_in_season = games_in_season.map do |game|
-    game.game_id
-  end
-
-  game_teams_in_season = @game_teams.select do |game_team|
-    game_ids_in_season.include?(game_team.game_id)
-  end
-
-  games_per_season_per_team = game_teams_in_season.group_by do |game|
-    game.team_id
-  end
-
- team_tackles = Hash.new(0)
-   games_per_season_per_team.each do |team, games|
-     games.each do |game|
-       team_tackles[game.team_id] += game.tackles
-     end
-   end
-
- fewest = team_tackles.min_by {|k, v| v}
- @teams.find {|team| team.team_id == fewest.first}.teamname
-end#tackle method
-
-
-
-
-
+ end#tackle method
 end#class
