@@ -41,7 +41,7 @@ class StatTracker
     game_teams_objects_collection
   end
 
-  def percentage_tie
+  def percentage_ties
     game_ties = @game_teams.select do |game|
       game.result == "TIE"
     end

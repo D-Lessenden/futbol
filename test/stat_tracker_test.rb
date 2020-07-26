@@ -20,8 +20,8 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
-  def test_can_find_percentage_tie
-     assert_equal 0.20, @stat_tracker.percentage_tie
+  def test_can_find_percentage_ties
+     assert_equal 0.20, @stat_tracker.percentage_ties
    end
 
   def test_count_games_by_season
