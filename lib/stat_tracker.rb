@@ -115,12 +115,10 @@ class StatTracker
       games_by_season
   end
 
-
   def season_games
     season_games = games_by_season.map {|season, games| games}.flatten.compact
     #array of every single game object
   end
-
 
   def team_games_per_season(teamID)
     games_by_team = season_games.select {|team| team.team_id == teamID}
@@ -128,8 +126,8 @@ class StatTracker
     #hash organized with season keys and games per season as value
   end
 
-  def best_season(teamID)
-    win_hash = Hash.new(0)
+  def win_hash(teamID)
+    @win_count = Hash.new(0)
     team_games_per_season(teamID).each do |season, games|
       count = 0
       total = 0
@@ -140,11 +138,16 @@ class StatTracker
           else
             total += 1
           end
-      win_hash[season] = [count, total]
+      @win_count[season] = [count, total]
         end
       end
-    best = win_hash.max_by do |season, games|
-      win_hash[season].first / win_hash[season].last.to_f
+      @win_count
+  end
+
+  def best_season(teamID)
+    win_hash(teamID)
+    best = @win_count.max_by do |season, games|
+      @win_count[season].first / @win_count[season].last.to_f
     end
       math = best[0].to_i
       math += 1
@@ -153,22 +156,9 @@ class StatTracker
   end#method
 
   def worst_season(teamID)
-    win_hash = Hash.new(0)
-    team_games_per_season(teamID).each do |season, games|
-      count = 0
-      total = 0
-      games.each do |game|
-        if game.result == "WIN"
-          count += 1
-          total += 1
-        else
-          total += 1
-        end
-      win_hash[season] = [count, total]
-    end
-    end
-    worst = win_hash.min_by do |season, games|
-      win_hash[season].first / win_hash[season].last.to_f
+    win_hash(teamID)
+    worst = @win_count.min_by do |season, games|
+      @win_count[season].first / @win_count[season].last.to_f
     end
       math = worst[0].to_i
       math += 1

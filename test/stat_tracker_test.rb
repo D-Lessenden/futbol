@@ -88,13 +88,23 @@ class StatTrackerTest < MiniTest::Test
      assert_equal 94, @stat_tracker.team_games_per_season("6")["2017"].count
    end
 
+  def test_win_hash
+    result = {"2012"=>[38, 70],
+              "2016"=>[45, 88],
+              "2014"=>[31, 82],
+              "2015"=>[33, 82],
+              "2013"=>[54, 94],
+              "2017"=>[50, 94]}
+    assert_equal result, @stat_tracker.win_hash("6")
+  end
+
    def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
    end
 
    def test_worst_season
      assert_equal "20142015", @stat_tracker.worst_season("6")
-  end
+   end
 
   def test_games_per_season_per_team
     assert_equal 30, @stat_tracker.games_per_season_per_team("20132014").keys.count
