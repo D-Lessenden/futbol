@@ -94,7 +94,6 @@ class StatTracker
 
   def season_hash
     season_hash = @games.group_by {|games| games.season}
-          season_hash.delete_if {|k, v| k.nil?}
   end
 
   def game_ids_by_season
@@ -121,6 +120,7 @@ class StatTracker
 
   def season_games
     season_games = games_by_season.map {|season, games| games}.flatten.compact
+    #array of every single game object
   end
 
 
@@ -193,7 +193,6 @@ def games_per_season_per_team(seasonID)
      games_per_season_per_team = game_teams_in_season.group_by do |game|
        game.team_id
      end
-      #  NEEDS TEST
    end
 
   def team_tackles(seasonID)
@@ -204,7 +203,6 @@ def games_per_season_per_team(seasonID)
         end
       end
       team_tackles
-  #  NEEDS TEST
   end
 
   def fewest_tackles(seasonID)
