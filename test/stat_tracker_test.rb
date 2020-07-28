@@ -78,27 +78,21 @@ class StatTrackerTest < MiniTest::Test
   def test_highest_scoring_home_team
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
+  
+  def test_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
+  end
 
+  def test_goals
+    assert_equal 32, @stat_tracker.goals.keys.count
+    assert_equal 2.1018867924528304, @stat_tracker.goals["3"]
+    assert_equal 2.3884892086330933, @stat_tracker.goals["5"]
+  end
 
-   def test_goals
-     assert_equal 32, @stat_tracker.goals.keys.count
-     assert_equal 2.1018867924528304, @stat_tracker.goals["3"]
-     assert_equal 2.3884892086330933, @stat_tracker.goals["5"]
-   end
-
-
-   def test_highest_scoring_home_team
-     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
-   end
-
-   def test_lowest_scoring_home_team
-     assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
-   end
-
-   def test_season_hash
-     assert_equal 6, @stat_tracker.season_hash.keys.count
-     assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.season_hash.keys
-   end
+  def test_season_hash
+    assert_equal 6, @stat_tracker.season_hash.keys.count
+    assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.season_hash.keys
+  end
 
   def test_it_can_create_an_away_goals_and_team_id_hash
     assert_equal 32, @stat_tracker.total_goals_by_away_team.count
