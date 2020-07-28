@@ -73,4 +73,11 @@ class GamesStatistics
     (total_visitor_wins.length.to_f / @games.length).round(2)
   end
 
+  def percentage_ties
+    game_ties = @game_teams.select do |game|
+      game.result == "TIE"
+    end
+    (game_ties.count / @game_teams.count.to_f).round(2)
+  end
+
 end

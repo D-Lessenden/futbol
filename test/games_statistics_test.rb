@@ -43,7 +43,7 @@ class GamesStatisticsTest < MiniTest::Test
 
   # percentage_ties. Float
   def test_can_find_percentage_tie
-    assert_equal 0.20, @games_statistics.percentage_tie
+    assert_equal 0.20, @games_statistics.percentage_ties
   end
 
   # count_of_games_by_season. Hash
