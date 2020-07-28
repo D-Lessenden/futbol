@@ -94,4 +94,19 @@ class GamesStatistics
     sum_of_goals_divided_by_game_count
   end
 
+  def average_goals_by_season
+    games_by_season = @games.group_by {|game| game.season}
+    goals_per_season = {}
+    games_by_season.map do |season, games|
+      goals_per_season[season] = games.sum do |game|
+        game.away_goals + game.home_goals
+      end
+    end
+    avg_goals_per_season = {}
+    goals_per_season.each do |season, goals|
+      division = (goals.to_f / count_of_games_by_season[season] ).round(2)
+      avg_goals_per_season[season] = division
+    end
+    avg_goals_per_season
+  end
 end
