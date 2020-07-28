@@ -21,12 +21,10 @@ class LeagueStatisticsTest < MiniTest::Test
   end
 
   def test_it_can_return_best_offense
-
     assert_equal "Reign FC", @league_statistics.best_offense
   end
 
   def test_it_can_return_worst_offense
-
     assert_equal "Utah Royals FC", @league_statistics.worst_offense
   end
 
@@ -43,65 +41,60 @@ class LeagueStatisticsTest < MiniTest::Test
   end
 
   def test_lowest_scoring_home_team
-
     assert_equal "Utah Royals FC" ,@league_statistics.lowest_scoring_home_team
   end
 
   def test_it_can_create_hash_with_total_games_played_by_away_team
-    assert_equal 32, @stat_tracker.away_teams_game_count_by_team_id.count
-    assert_equal Hash, @stat_tracker.away_teams_game_count_by_team_id.class
-    assert_equal 266, @stat_tracker.away_teams_game_count_by_team_id["3"]
-    assert_nil @stat_tracker.away_teams_game_count_by_team_id["56"]
+    assert_equal 32, @league_statistics.away_teams_game_count_by_team_id.count
+    assert_equal Hash, @league_statistics.away_teams_game_count_by_team_id.class
+    assert_equal 266, @league_statistics.away_teams_game_count_by_team_id["3"]
+    assert_nil @league_statistics.away_teams_game_count_by_team_id["56"]
   end
 
   def test_it_can_find_highest_total_goals_by_away_team
-    assert_equal String, @stat_tracker.highest_total_goals_by_away_team[0].class
-    assert_equal Integer, @stat_tracker.highest_total_goals_by_away_team[1].class
-    assert_equal 2, @stat_tracker.highest_total_goals_by_away_team.count
-    assert_equal Array, @stat_tracker.highest_total_goals_by_away_team.class
+    assert_equal String, @league_statistics.highest_total_goals_by_away_team[0].class
+    assert_equal Integer, @league_statistics.highest_total_goals_by_away_team[1].class
+    assert_equal 2, @league_statistics.highest_total_goals_by_away_team.count
+    assert_equal Array, @league_statistics.highest_total_goals_by_away_team.class
   end
 
   def test_it_can_calculate_overal_average_by_team
-    assert_equal 32, @stat_tracker.overall_average_scores_by_away_team.count
-    assert_equal Hash, @stat_tracker.overall_average_scores_by_away_team.class
-    assert_equal 2.2450592885375493, @stat_tracker.overall_average_scores_by_away_team["6"]
+    assert_equal 32, @league_statistics.overall_average_scores_by_away_team.count
+    assert_equal Hash, @league_statistics.overall_average_scores_by_away_team.class
+    assert_equal 2.2450592885375493, @league_statistics.overall_average_scores_by_away_team["6"]
   end
 
   def test_it_can_create_an_away_goals_and_team_id_hash
-    assert_equal 32, @stat_tracker.total_goals_by_away_team.count
-    assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
-    assert_equal 458, @stat_tracker.total_goals_by_away_team["20"]
+    assert_equal 32, @league_statistics.total_goals_by_away_team.count
+    assert_equal Hash, @league_statistics.total_goals_by_away_team.class
+    assert_equal 458, @league_statistics.total_goals_by_away_team["20"]
   end
 
   def test_it_can_group_team_id_with_game_teams_objects
-
-  assert_equal "3", @stat_tracker.team_by_id.keys[0]
-  assert_equal "6", @stat_tracker.team_by_id.keys[1]
+    assert_equal "3", @league_statistics.team_by_id.keys[0]
+    assert_equal "6", @league_statistics.team_by_id.keys[1]
   end
 
   def test_average_goals_all_seasons_by_id
-
-  assert_equal ["3", 2.13], @stat_tracker.average_goals_all_seasons_by_id.first
+    assert_equal ["3", 2.13], @league_statistics.average_goals_all_seasons_by_id.first
   end
 
   def test_total_games_by_id
-
-  assert_equal ["3", 531], @stat_tracker.total_games_by_id.first
+    assert_equal ["3", 531], @league_statistics.total_games_by_id.first
   end
 
   def test_total_goals_by_id
-
-  assert_equal ["3", 1129], @stat_tracker.total_goals_by_id.first
+    assert_equal ["3", 1129], @league_statistics.total_goals_by_id.first
   end
 
   def test_goals
-    assert_equal 32, @stat_tracker.goals.keys.count
-    assert_equal 2.1018867924528304, @stat_tracker.goals["3"]
-    assert_equal 2.3884892086330933, @stat_tracker.goals["5"]
+    assert_equal 32, @league_statistics.goals.keys.count
+    assert_equal 2.1018867924528304, @league_statistics.goals["3"]
+    assert_equal 2.3884892086330933, @league_statistics.goals["5"]
   end
 
   def test_home_team_hash
-    assert_equal 32, @stat_tracker.home_team.keys.count
-    assert_equal Hash, @stat_tracker.home_team.class
+    assert_equal 32, @league_statistics.home_team.keys.count
+    assert_equal Hash, @league_statistics.home_team.class
   end
 end
