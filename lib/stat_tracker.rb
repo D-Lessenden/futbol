@@ -40,13 +40,6 @@ class StatTracker
     game_teams_objects_collection
   end
 
-  def average_goals_per_game
-    games_count = @games.count.to_f
-    sum_of_goals = (@games.map {|game| game.home_goals + game.away_goals}.to_a).sum
-    sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
-    sum_of_goals_divided_by_game_count
-  end
-
   def average_goals_by_season
     games_by_season = @games.group_by {|game| game.season}
     goals_per_season = {}
