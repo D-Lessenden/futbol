@@ -60,4 +60,10 @@ class LeagueStatisticsTest < MiniTest::Test
     assert_equal 2, @stat_tracker.highest_total_goals_by_away_team.count
     assert_equal Array, @stat_tracker.highest_total_goals_by_away_team.class
   end
+
+  def test_it_can_calculate_overal_average_by_team
+    assert_equal 32, @stat_tracker.overall_average_scores_by_away_team.count
+    assert_equal Hash, @stat_tracker.overall_average_scores_by_away_team.class
+    assert_equal 2.2450592885375493, @stat_tracker.overall_average_scores_by_away_team["6"]
+  end
 end
