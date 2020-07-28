@@ -41,9 +41,11 @@ class GamesStatisticsTest < MiniTest::Test
     assert_equal 0.36, @games_statistics.percentage_visitor_wins
   end
 
-
-
   # percentage_ties. Float
+  def test_can_find_percentage_tie
+    assert_equal 0.20, @games_statistics.percentage_tie
+  end
+
   # count_of_games_by_season. Hash
   # average_goals_per_game. Float
   # average_goals_by_season. Hash
