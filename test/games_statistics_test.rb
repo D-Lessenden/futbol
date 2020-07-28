@@ -22,8 +22,8 @@ class GamesStatisticsTest < MiniTest::Test
   end
 
   # highest_total_score.  Integer
-  def test_highest_scoring_home_team
-     assert_equal "Reign FC", @games_statistics.highest_scoring_home_team
+  def test_it_can_find_highest_total_score
+    assert_equal 11, @games_statistics.highest_total_score
   end
 
   #  lowest_total_score. Integer

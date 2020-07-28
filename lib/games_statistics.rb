@@ -39,28 +39,14 @@ class GamesStatistics
     end
     game_teams_objects_collection
   end
-##============================================================
-  def highest_scoring_home_team
-    id = goals.max_by {|key, value| value}
-      @teams.find {|team| team.team_id == id[0]}.teamname
+
+  ##=============================================
+
+  def highest_total_score
+    output = @games.max_by do |game|
+      game.away_goals + game.home_goals
+    end
+    output.away_goals + output.home_goals
   end
 
-  def goals
-    goals = {}
-    home_team.each do |team_id, games|
-      goal_count = 0
-      games.each do |game|
-        goal_count += game.home_goals
-      end
-      average_goals = goal_count / games.count.to_f
-      goals[team_id] = average_goals
-    end
-    goals
-  end
-
-  def home_team
-    home_team = @games.group_by do |game|
-      game.home_team_id
-    end
-  end
 end

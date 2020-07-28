@@ -112,6 +112,31 @@ class StatTracker
     teams.count
   end
 
+  def home_team
+    home_team = @games.group_by do |game|
+      game.home_team_id
+    end
+  end
+
+  def goals
+    goals = {}
+    home_team.each do |team_id, games|
+      goal_count = 0
+      games.each do |game|
+        goal_count += game.home_goals
+      end
+      average_goals = goal_count / games.count.to_f
+      goals[team_id] = average_goals
+    end
+    goals
+  end
+
+  def highest_scoring_home_team
+    goals #WE CAN DELETE THIS
+    id = goals.max_by {|key, value| value}
+      @teams.find {|team| team.team_id == id[0]}.teamname
+  end
+
   def total_goals_by_away_team
     away_goals = Hash.new{0}
     @games.sum do |game|
