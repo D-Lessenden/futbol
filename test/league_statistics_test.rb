@@ -88,4 +88,9 @@ class LeagueStatisticsTest < MiniTest::Test
 
   assert_equal ["3", 531], @stat_tracker.total_games_by_id.first
   end
+
+  def test_total_goals_by_id
+
+  assert_equal ["3", 1129], @stat_tracker.total_goals_by_id.first
+  end
 end
