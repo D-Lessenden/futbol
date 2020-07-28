@@ -16,10 +16,10 @@ class LeagueStatisticsTest < MiniTest::Test
     @league_statistics = LeagueStatistics.new(locations)
   end
 
-  def test_it_exits
+  def test_it_exists
     assert_instance_of LeagueStatistics, @league_statistics
   end
-    
+
   def test_count_of_teams
     assert_equal 32, @league_statistics.count_of_teams
   end
