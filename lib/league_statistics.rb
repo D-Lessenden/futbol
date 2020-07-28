@@ -139,4 +139,8 @@ class LeagueStatistics
     end
   end
 
+  def count_of_teams
+    teams.count
+  end
+
 end
