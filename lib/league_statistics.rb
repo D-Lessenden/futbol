@@ -120,4 +120,17 @@ class LeagueStatistics
     @teams.find {|team| team.team_id == id[0]}.teamname
   end
 
+  def goals
+    goals = {}
+    home_team.each do |team_id, games|
+      goal_count = 0
+      games.each do |game|
+        goal_count += game.home_goals
+      end
+      average_goals = goal_count / games.count.to_f
+      goals[team_id] = average_goals
+    end
+    goals
+  end
+
 end
