@@ -15,4 +15,8 @@ class LeagueStatisticsTest < MiniTest::Test
 
     @league_statistics = LeagueStatistics.new(locations)
   end
+
+  def test_count_of_teams
+    assert_equal 32, @league_statistics.count_of_teams
+  end
 end
