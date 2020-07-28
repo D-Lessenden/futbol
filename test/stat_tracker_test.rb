@@ -1,5 +1,4 @@
 require "./test/test_helper"
-# require 'minitest/autorun'
 
 
 class StatTrackerTest < MiniTest::Test
