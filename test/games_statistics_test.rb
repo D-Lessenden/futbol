@@ -32,6 +32,11 @@ class GamesStatisticsTest < MiniTest::Test
   end
 
   # percentage_home_wins. Float
+  def test_it_can_find_percentage_home_wins
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
+
+
   # percentage_visitor_wins. Float
   # percentage_ties. Float
   # count_of_games_by_season. Hash
