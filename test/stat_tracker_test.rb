@@ -26,11 +26,7 @@ class StatTrackerTest < MiniTest::Test
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
 
-  def test_average_goals_by_season
-    @stat_tracker.average_goals_by_season
-    expected = {"20122013" => 4.12, "20162017" => 4.23, "20142015" => 4.14, "20152016" => 4.16, "20132014" => 4.19, "20172018" => 4.44 }
-    assert_equal expected, @stat_tracker.average_goals_by_season
-  end
+  
 
   def test_count_of_teams
     assert_equal 32, @stat_tracker.count_of_teams
