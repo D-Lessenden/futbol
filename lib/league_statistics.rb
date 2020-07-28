@@ -133,4 +133,10 @@ class LeagueStatistics
     goals
   end
 
+  def home_team
+    home_team = @games.group_by do |game|
+      game.home_team_id
+    end
+  end
+
 end
