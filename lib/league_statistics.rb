@@ -37,4 +37,10 @@ class LeagueStatistics
     end
     away_goals
   end
+
+  def lowest_scoring_home_team
+    goals
+    id = goals.min_by {|team, num_of_goals| num_of_goals}
+    @teams.find {|team| team.team_id == id[0]}.teamname
+  end
 end
