@@ -78,4 +78,9 @@ class LeagueStatisticsTest < MiniTest::Test
   assert_equal "3", @stat_tracker.team_by_id.keys[0]
   assert_equal "6", @stat_tracker.team_by_id.keys[1]
   end
+
+  def test_average_goals_all_seasons_by_id
+
+  assert_equal ["3", 2.13], @stat_tracker.average_goals_all_seasons_by_id.first
+  end
 end
