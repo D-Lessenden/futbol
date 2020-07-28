@@ -29,4 +29,12 @@ class LeagueStatistics
     end
     over_all_average_by_team
   end
+
+  def total_goals_by_away_team
+    away_goals = Hash.new{0}
+    @games.sum do |game|
+      away_goals[game.away_team_id] += game.away_goals
+    end
+    away_goals
+  end
 end
