@@ -19,4 +19,14 @@ class LeagueStatisticsTest < MiniTest::Test
   def test_count_of_teams
     assert_equal 32, @league_statistics.count_of_teams
   end
+
+  def test_it_can_return_best_offense
+
+    assert_equal "Reign FC", @league_statistics.best_offense
+  end
+
+  def test_it_can_return_worst_offense
+
+    assert_equal "Utah Royals FC", @league_statistics.worst_offense
+  end
 end
