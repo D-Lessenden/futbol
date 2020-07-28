@@ -82,4 +82,10 @@ class LeagueStatistics
     worst_offense
   end
 
+  def highest_total_goals_by_away_team
+    total_goals_by_away_team.max_by do |team_id, total_goals|
+      total_goals
+    end
+  end
+
 end
