@@ -99,4 +99,9 @@ class LeagueStatisticsTest < MiniTest::Test
     assert_equal 2.1018867924528304, @stat_tracker.goals["3"]
     assert_equal 2.3884892086330933, @stat_tracker.goals["5"]
   end
+
+  def test_home_team_hash
+    assert_equal 32, @stat_tracker.home_team.keys.count
+    assert_equal Hash, @stat_tracker.home_team.class
+  end
 end
