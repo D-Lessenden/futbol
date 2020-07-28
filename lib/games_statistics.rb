@@ -80,4 +80,11 @@ class GamesStatistics
     (game_ties.count / @game_teams.count.to_f).round(2)
   end
 
+  def count_of_games_by_season
+    games_by_season = @games.group_by {|game| game.season}
+    game_count_per_season = {}
+    games_by_season.map {|season, game| game_count_per_season[season] = game.count}
+    game_count_per_season
+  end
+
 end
