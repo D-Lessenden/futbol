@@ -29,4 +29,12 @@ class LeagueStatisticsTest < MiniTest::Test
 
     assert_equal "Utah Royals FC", @league_statistics.worst_offense
   end
+
+  def test_it_can_calculate_highest_scoring_visitor
+    assert_equal "FC Dallas", @league_statistics.highest_scoring_visitor
+  end
+
+  def test_highest_scoring_home_team
+    assert_equal "Reign FC", @league_statistics.highest_scoring_home_team
+  end
 end
