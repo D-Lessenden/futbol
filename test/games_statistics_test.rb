@@ -1,7 +1,7 @@
 require "./test/test_helper"
 
 
-class GameStatisticsTest < MiniTest::Test
+class GamesStatisticsTest < MiniTest::Test
 
   def setup
     game_path = './data/games.csv'
@@ -14,11 +14,11 @@ class GameStatisticsTest < MiniTest::Test
       game_teams: game_teams_path
     }
 
-    @game_statistics = GameStatistics.from_csv(locations)
+    @games_statistics = GamesStatistics.from_csv(locations)
   end
 
-  def test_it_exist
-    assert_instance_of GameStatistics, @game_statistics
+  def test_it_exists
+    assert_instance_of GamesStatistics, @games_statistics
   end
 
 end 
