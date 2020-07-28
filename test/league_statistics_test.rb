@@ -72,4 +72,10 @@ class LeagueStatisticsTest < MiniTest::Test
     assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
     assert_equal 458, @stat_tracker.total_goals_by_away_team["20"]
   end
+
+  def test_it_can_group_team_id_with_game_teams_objects
+
+  assert_equal "3", @stat_tracker.team_by_id.keys[0]
+  assert_equal "6", @stat_tracker.team_by_id.keys[1]
+  end
 end
