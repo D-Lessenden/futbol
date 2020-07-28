@@ -26,7 +26,11 @@ class GamesStatisticsTest < MiniTest::Test
     assert_equal 11, @games_statistics.highest_total_score
   end
 
-  #  lowest_total_score. Integer
+  # lowest_total_score. Integer
+  def test_it_can_calculate_the_lowest_total_score
+    assert_equal 0, @stat_tracker.lowest_total_score
+  end
+
   # percentage_home_wins. Float
   # percentage_visitor_wins. Float
   # percentage_ties. Float
