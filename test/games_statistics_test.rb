@@ -33,7 +33,7 @@ class GamesStatisticsTest < MiniTest::Test
 
   # percentage_home_wins. Float
   def test_it_can_find_percentage_home_wins
-    assert_equal 0.44, @stat_tracker.percentage_home_wins
+    assert_equal 0.44, @games_statistics.percentage_home_wins
   end
 
 

@@ -56,4 +56,14 @@ class GamesStatistics
     output.away_goals + output.home_goals
   end
 
+  def percentage_home_wins
+    home_games = @game_teams.select do |game|
+      game.hoa == "home"
+    end
+    home_wins = @game_teams.select do |game|
+      game.result == "WIN" && game.hoa == "home"
+    end
+    (home_wins.count / home_games.count.to_f).round(2)
+  end
+
 end
