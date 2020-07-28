@@ -108,4 +108,16 @@ class LeagueStatistics
     total_goals_by_id
   end
 
+  def highest_scoring_home_team
+    goals #WE CAN DELETE THIS
+    id = goals.max_by {|key, value| value}
+      @teams.find {|team| team.team_id == id[0]}.teamname
+  end
+
+  def lowest_scoring_home_team
+    goals
+    id = goals.min_by {|team, num_of_goals| num_of_goals}
+    @teams.find {|team| team.team_id == id[0]}.teamname
+  end
+
 end
