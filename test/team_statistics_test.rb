@@ -111,11 +111,6 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal Hash, @team_statistics.opponents_of("54").class
   end
 
-  def test_it_can_find_team_name
-    assert_equal "Minnesota United FC", @team_statistics.find_team_name("18")
-    assert_equal "Reign FC", @team_statistics.find_team_name("54")
-  end
-
   def test_it_pair_goals_scored_with_each_instance
 
   assert_equal [2, 3, 1, 0, 5, 4, 7], @team_statistics.team_goals("18").keys
