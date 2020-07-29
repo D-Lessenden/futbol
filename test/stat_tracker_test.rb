@@ -1,5 +1,4 @@
 require "./test/test_helper"
-# require 'minitest/autorun'
 
 
 class StatTrackerTest < MiniTest::Test
@@ -96,11 +95,6 @@ class StatTrackerTest < MiniTest::Test
      assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
    end
 
-   def test_season_hash
-     assert_equal 6, @stat_tracker.season_hash.keys.count
-     assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.season_hash.keys
-   end
-
   def test_it_can_create_an_away_goals_and_team_id_hash
     assert_equal 32, @stat_tracker.total_goals_by_away_team.count
     assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
@@ -170,42 +164,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.team_info("18")
   end
 
-
-   def test_game_ids_by_season
-     assert_equal 6, @stat_tracker.game_ids_by_season.keys.count
-     assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.game_ids_by_season.keys
-     assert_equal 806, @stat_tracker.game_ids_by_season["20122013"].count
-   end
-
-   def test_games_by_season
-     assert_equal 6, @stat_tracker.games_by_season.count
-     assert_equal 2, @stat_tracker.games_by_season["20122013"].first.goals
-     assert_equal "3", @stat_tracker.games_by_season["20122013"].first.team_id
-     assert_equal "LOSS", @stat_tracker.games_by_season["20122013"].first.result
-   end
-
-   def test_season_games
-     assert_equal 14882, @stat_tracker.season_games.count
-     assert_equal "John Tortorella", @stat_tracker.season_games.first.head_coach
-     assert_equal "2012030221", @stat_tracker.season_games.first.game_id
-   end
-
-   def test_team_games_per_season
-     @stat_tracker.team_games_per_season("6")
-     assert_equal 70, @stat_tracker.team_games_per_season("6")["2012"].count
-     assert_equal 94, @stat_tracker.team_games_per_season("6")["2017"].count
-   end
-
-  def test_win_hash
-    result = {"2012"=>[38, 70],
-              "2016"=>[45, 88],
-              "2014"=>[31, 82],
-              "2015"=>[33, 82],
-              "2013"=>[54, 94],
-              "2017"=>[50, 94]}
-    assert_equal result, @stat_tracker.win_hash("6")
-  end
-
    def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
    end
@@ -247,92 +205,6 @@ class StatTrackerTest < MiniTest::Test
   assert_equal "DC United", @stat_tracker.favorite_opponent("18")
   end
 
-  def test_it_can_find_all_opponents
-    assert_equal 31, @stat_tracker.opponents_of("18").count
-    assert_equal Hash, @stat_tracker.opponents_of("18").class
-
-    assert_equal 30, @stat_tracker.opponents_of("54").count
-    assert_equal Hash, @stat_tracker.opponents_of("54").class
-  end
-
-  def test_it_can_find_team_name
-    assert_equal "Minnesota United FC", @stat_tracker.find_team_name("18")
-    assert_equal "Reign FC", @stat_tracker.find_team_name("54")
-  end
-
-  def test_it_can_count_games_won_against_opponents
-    expected = {
-     "19"=>15,
-     "52"=>14,
-     "21"=>14,
-     "16"=>18,
-     "1"=>5,
-     "29"=>7,
-     "8"=>4,
-     "23"=>6,
-     "15"=>3,
-     "25"=>13,
-     "20"=>6,
-     "28"=>11,
-     "24"=>13,
-     "5"=>4,
-     "2"=>5,
-     "7"=>6,
-     "14"=>8,
-     "22"=>12,
-     "3"=>4,
-     "10"=>2,
-     "9"=>6,
-     "26"=>7,
-     "6"=>4,
-     "12"=>3,
-     "30"=>10,
-     "27"=>2,
-     "17"=>4,
-     "53"=>6,
-     "4"=>3,
-     "54"=>1,
-     "13"=>1}
-    assert_equal expected, @stat_tracker.games_won_by_team("18")
-
-  end
-
-  def test_it_can_calculate_average_win_percentage
-    expected = {
-       "19"=>0.4411764705882353,
-       "52"=>0.45161290322580644,
-       "21"=>0.4375,
-       "16"=>0.47368421052631576,
-       "1"=>0.5,
-       "29"=>0.4666666666666667,
-       "8"=>0.4,
-       "23"=>0.3333333333333333,
-       "15"=>0.3,
-       "25"=>0.48148148148148145,
-       "20"=>0.3333333333333333,
-       "28"=>0.44,
-       "24"=>0.41935483870967744,
-       "5"=>0.25,
-       "2"=>0.5,
-       "7"=>0.6,
-       "14"=>0.8,
-       "22"=>0.6666666666666666,
-       "3"=>0.4,
-       "10"=>0.2,
-       "9"=>0.6,
-       "26"=>0.3888888888888889,
-       "6"=>0.4,
-       "12"=>0.3,
-       "30"=>0.37037037037037035,
-       "27"=>0.3333333333333333,
-       "17"=>0.2857142857142857,
-       "53"=>0.5,
-       "4"=>0.3,
-       "54"=>0.3333333333333333,
-       "13"=>0.1}
-    assert_equal expected, @stat_tracker.average_win_percentage_by_opponents_of("18")
-  end
-
   def test_it_can_find_rival
     assert_equal "Houston Dash", @stat_tracker.rival("18")
 
@@ -347,7 +219,7 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_find_most_goals_scored_for_team
     assert_equal 7, @stat_tracker.most_goals_scored("18")
   end
-######################################
+
   def test_it_can_find_fewest_goals_scored_for_team
     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
@@ -380,17 +252,6 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_return_accuracy_for_each_team
 
   assert_equal ["16", 0.3042362002567394], @stat_tracker.team_accuracy("20132014").first
-  end
-
-  def test_games_by_team
-
-  assert_equal 8, @stat_tracker.games_by_team("18").first.shots
-  end
-
-  ######################################
-  def test_it_pair_goals_scored_with_each_instance
-
-  assert_equal [2, 3, 1, 0, 5, 4, 7], @stat_tracker.team_goals("18").keys
   end
 
   def test_total_goals_by_id
