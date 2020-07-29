@@ -3,15 +3,18 @@ require "./lib/games"
 require "./lib/teams"
 require "./lib/game_teams"
 require "./lib/league_statistics"
+require "./lib/team_statistics"
 
 class CSVData
- attr_reader  :league_statistics
+ attr_reader  :league_statistics, :team_statistics
+
 
  def initialize(locations)
    @games ||= turn_games_csv_data_into_games_objects(locations[:games])
    @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
    @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
    @league_statistics = LeagueStatistics.new(@games, @teams, @game_teams)
+   @team_statistics = TeamStatistics.new(@games, @teams, @game_teams)
  end
 
  def turn_games_csv_data_into_games_objects(games_csv_data)
@@ -29,7 +32,7 @@ class CSVData
    end
    teams_objects_collection
  end
- 
+
  def turn_game_teams_csv_data_into_game_teams_objects(game_teams_csv_data)
    game_teams_objects_collection = []
    CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
