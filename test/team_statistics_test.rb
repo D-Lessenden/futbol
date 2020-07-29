@@ -30,12 +30,10 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_identify_favorite_opponent
-    # skip
-  assert_equal "DC United", @team_statistics.favorite_opponent("18")
+    assert_equal "DC United", @team_statistics.favorite_opponent("18")
   end
 
   def test_it_can_calculate_average_win_percentage
-    skip
     expected = {
        "19"=>0.4411764705882353,
        "52"=>0.45161290322580644,
