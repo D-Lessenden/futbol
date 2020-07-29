@@ -1,3 +1,4 @@
+require "./lib/csv_data"
 require "./test/test_helper"
 
 
@@ -20,22 +21,11 @@ class GameTeamsTest < Minitest::Test
         :giveaways => 17,
         :takeaways => 7
         }
-      game_path = './data/games.csv'
-      team_path = './data/teams.csv'
-      game_teams_path = './data/game_teams.csv'
 
-      locations = {
-        games: game_path,
-        teams: team_path,
-        game_teams: game_teams_path
-      }
-        stat_tracker = StatTracker.new(locations)
-        stat_tracker.game_teams
         @game_teams = GameTeams.new(row)
     end
 
     def test_it_exists
-
       assert_instance_of GameTeams, @game_teams
     end
 

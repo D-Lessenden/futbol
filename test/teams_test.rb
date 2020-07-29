@@ -1,28 +1,18 @@
+require "./lib/csv_data"
 require "./test/test_helper"
 
 
 class TeamsTest < MiniTest::Test
   def setup
     row = {
-:team_id => 1,
-:franchiseid => 2,
-:teamname => "Atlanta United",
-:abbreviation => "ATL",
-:stadium => "Mercedes-Benz Stadium",
-:link => "/api/v1/teams/1"
+      :team_id => 1,
+      :franchiseid => 2,
+      :teamname => "Atlanta United",
+      :abbreviation => "ATL",
+      :stadium => "Mercedes-Benz Stadium",
+      :link => "/api/v1/teams/1"
           }
 
-  game_path = './data/games.csv'
-  team_path = './data/teams.csv'
-  game_teams_path = './data/game_teams.csv'
-
-  locations = {
-    games: game_path,
-    teams: team_path,
-    game_teams: game_teams_path
-  }
-    stat_tracker = StatTracker.new(locations)
-    stat_tracker.teams
     @teams = Teams.new(row)
   end
 
