@@ -204,6 +204,14 @@ class TeamStatisticsTest < Minitest::Test
 
   end
 
+  def test_best_season
+   assert_equal "20132014", @team_statistics.best_season("6")
+  end
+
+  def test_worst_season
+    assert_equal "20142015", @team_statistics.worst_season("6")
+  end
+
 
 
 
