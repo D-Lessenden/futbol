@@ -71,55 +71,18 @@ class StatTrackerTest < MiniTest::Test
   def test_highest_scoring_home_team
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
-  
+
   def test_lowest_scoring_home_team
     assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
   end
 
-  def test_goals
-    assert_equal 32, @stat_tracker.goals.keys.count
-    assert_equal 2.1018867924528304, @stat_tracker.goals["3"]
-    assert_equal 2.3884892086330933, @stat_tracker.goals["5"]
+  def test_highest_scoring_home_team
+    assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
   end
 
-  def test_season_hash
-    assert_equal 6, @stat_tracker.season_hash.keys.count
-    assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.season_hash.keys
+  def test_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
   end
-
-  def test_it_can_create_an_away_goals_and_team_id_hash
-    assert_equal 32, @stat_tracker.total_goals_by_away_team.count
-    assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
-    assert_equal 458, @stat_tracker.total_goals_by_away_team["20"]
-  end
-
-  def test_it_can_create_hash_with_total_games_played_by_away_team
-    assert_equal 32, @stat_tracker.away_teams_game_count_by_team_id.count
-    assert_equal Hash, @stat_tracker.away_teams_game_count_by_team_id.class
-    assert_equal 266, @stat_tracker.away_teams_game_count_by_team_id["3"]
-    assert_nil @stat_tracker.away_teams_game_count_by_team_id["56"]
-  end
-
-  def test_it_can_find_highest_total_goals_by_away_team
-    assert_equal String, @stat_tracker.highest_total_goals_by_away_team[0].class
-    assert_equal Integer, @stat_tracker.highest_total_goals_by_away_team[1].class
-    assert_equal 2, @stat_tracker.highest_total_goals_by_away_team.count
-    assert_equal Array, @stat_tracker.highest_total_goals_by_away_team.class
-  end
-
-  def test_it_can_calculate_overal_average_by_team
-    assert_equal 32, @stat_tracker.overall_average_scores_by_away_team.count
-    assert_equal Hash, @stat_tracker.overall_average_scores_by_away_team.class
-    assert_equal 2.2450592885375493, @stat_tracker.overall_average_scores_by_away_team["6"]
-  end
-
-   def test_highest_scoring_home_team
-     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
-   end
-
-   def test_lowest_scoring_home_team
-     assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
-   end
 
   def test_it_can_calculate_highest_scoring_visitor
     assert_equal "FC Dallas", @stat_tracker.highest_scoring_visitor
@@ -224,36 +187,6 @@ class StatTrackerTest < MiniTest::Test
   def test_find_the_most_tackles
     assert_equal "FC Cincinnati", @stat_tracker.most_tackles("20132014")
     assert_equal "Seattle Sounders FC", @stat_tracker.most_tackles("20142015")
-  end
-
-  def test_it_can_return_accuracy_for_each_team
-
-  assert_equal ["16", 0.3042362002567394], @stat_tracker.team_accuracy("20132014").first
-  end
-
-  def test_games_by_team
-
-  assert_equal 8, @stat_tracker.games_by_team("18").first.shots
-  end
-
-  def test_it_pair_goals_scored_with_each_instance
-
-  assert_equal [2, 3, 1, 0, 5, 4, 7], @stat_tracker.team_goals("18").keys
-  end
-
-  def test_total_goals_by_id
-
-  assert_equal ["3", 1129], @stat_tracker.total_goals_by_id.first
-  end
-
-  def test_total_games_by_id
-
-  assert_equal ["3", 531], @stat_tracker.total_games_by_id.first
-  end
-
-  def test_average_goals_all_seasons_by_id
-
-  assert_equal ["3", 2.13], @stat_tracker.average_goals_all_seasons_by_id.first
   end
 
   def test_it_can_find_highest_total_score

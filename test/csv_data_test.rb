@@ -25,9 +25,9 @@ class CSVDataTest < Minitest::Test
   end
 
   def test_it_has_attributes
-    #assert_equal GamesStatistics, @csv_data.game_statistics.class
-    #assert_equal LeagueStatistics, csv_data.league_statistics.class
-    #assert_equal SeasonStatistics, csv_data.season_statistics
+    assert_equal GamesStatistics, @csv_data.games_statistics.class
+    assert_equal LeagueStatistics, @csv_data.league_statistics.class
+    assert_equal SeasonStatistics, @csv_data.season_statistics.class
     assert_equal TeamStatistics, @csv_data.team_statistics.class
   end
 
