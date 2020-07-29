@@ -70,7 +70,6 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_count_games_won_against_opponents
-    skip
     expected = {
      "19"=>15,
      "52"=>14,
