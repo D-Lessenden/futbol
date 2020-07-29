@@ -17,6 +17,9 @@ class CSVDataTest < Minitest::Test
     }
     StatTracker.from_csv(locations)
     @csv_data = CSVData.new(locations)
+    @games = @csv_data.games
+    @teams = @csv_data.teams
+    @game_teams = @csv_data.game_teams
 
   end
 
@@ -25,6 +28,9 @@ class CSVDataTest < Minitest::Test
   end
 
   def test_it_has_attributes
+    assert_equal @games, @csv_data.games
+    assert_equal @teams, @csv_data.teams
+    assert_equal @game_teams, @csv_data.game_teams
     assert_equal GamesStatistics, @csv_data.games_statistics.class
     assert_equal LeagueStatistics, @csv_data.league_statistics.class
     assert_equal SeasonStatistics, @csv_data.season_statistics.class
