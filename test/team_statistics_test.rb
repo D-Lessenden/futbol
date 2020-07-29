@@ -150,6 +150,11 @@ class TeamStatisticsTest < Minitest::Test
   assert_equal 8, @team_statistics.games_by_team("18").first.shots
   end
 
+  def test_season_hash
+    assert_equal 6, @team_statistics.season_hash.keys.count
+    assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @team_statistics.season_hash.keys
+  end
+
 
 
 
