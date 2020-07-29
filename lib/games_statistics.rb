@@ -1,5 +1,6 @@
+require "./module/calculatable"
 class GamesStatistics
-
+  include Calculatable
   def initialize(games, teams, game_teams)
     @games = games
     @teams = teams
@@ -27,21 +28,21 @@ class GamesStatistics
     home_wins = @game_teams.select do |game|
       game.result == "WIN" && game.hoa == "home"
     end
-    (home_wins.count / home_games.count.to_f).round(2)
+    average(home_wins.count, home_games.count.to_f).round(2)
   end
 
   def percentage_visitor_wins
     total_visitor_wins = @games.select do |game|
       game.away_goals > game.home_goals
     end
-    (total_visitor_wins.length.to_f / @games.length).round(2)
+    average(total_visitor_wins.length.to_f, @games.length).round(2)
   end
 
   def percentage_ties
     game_ties = @game_teams.select do |game|
       game.result == "TIE"
     end
-    (game_ties.count / @game_teams.count.to_f).round(2)
+    average(game_ties.count, @game_teams.count.to_f).round(2)
   end
 
   def count_of_games_by_season
@@ -54,8 +55,7 @@ class GamesStatistics
   def average_goals_per_game
     games_count = @games.count.to_f
     sum_of_goals = (@games.map {|game| game.home_goals + game.away_goals}.to_a).sum
-    sum_of_goals_divided_by_game_count = (sum_of_goals / games_count).round(2)
-    sum_of_goals_divided_by_game_count
+    average(sum_of_goals, games_count).round(2)
   end
 
   def average_goals_by_season
