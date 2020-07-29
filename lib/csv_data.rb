@@ -3,19 +3,18 @@ require "./lib/games"
 require "./lib/teams"
 require "./lib/game_teams"
 require "./lib/season_statistics"
-# require_relative "./csv_data"
-# require_relative './games'
-# require_relative './teams'
-# require_relative './game_teams'
-# require_relative './season_statistics'
- class CSVData
- attr_reader :season_statistics
+require "./lib/team_statistics"
+
+class CSVData
+ attr_reader  :team_statistics, :season_statistics
 
  def initialize(locations)
    @games ||= turn_games_csv_data_into_games_objects(locations[:games])
    @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
    @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
+
    @season_statistics = SeasonStatistics.new(@games, @teams, @game_teams)
+   @team_statistics = TeamStatistics.new(@games, @teams, @game_teams)
  end
 
  def turn_games_csv_data_into_games_objects(games_csv_data)

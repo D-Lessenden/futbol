@@ -1,8 +1,5 @@
 require "./lib/csv_data"
-require './lib/games'
-require './lib/teams'
-require './lib/game_teams'
-require './lib/season_statistics'
+
 class StatTracker
 
   def self.from_csv(locations)
@@ -11,7 +8,7 @@ class StatTracker
 
   def initialize(locations)
     csv_data = CSVData.new(locations)
-  #  @team_statistics = csv_data.team_statistics
+    @team_statistics = csv_data.team_statistics
     @season_statistics = csv_data.season_statistics
   end
 
@@ -37,6 +34,37 @@ class StatTracker
 
   def most_tackles(seasonID)
     @season_statistics.most_tackles(seasonID)
+
+  def team_info(team_id)
+    @team_statistics.team_info(team_id)
   end
 
-end#class
+  def average_win_percentage(team_id)
+    @team_statistics.average_win_percentage(team_id)
+  end
+
+  def most_goals_scored(team_id)
+    @team_statistics.most_goals_scored(team_id)
+  end
+
+  def fewest_goals_scored(team_id)
+    @team_statistics.fewest_goals_scored(team_id)
+  end
+
+  def best_season(team_id)
+    @team_statistics.best_season(team_id)
+  end
+
+  def worst_season(team_id)
+    @team_statistics.worst_season(team_id)
+  end
+
+  def favorite_opponent(team_id)
+    @team_statistics.favorite_opponent(team_id)
+  end
+
+  def rival(team_id)
+    @team_statistics.rival(team_id)
+  end
+
+end
