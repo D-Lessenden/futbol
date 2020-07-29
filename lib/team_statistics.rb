@@ -28,9 +28,9 @@ class TeamStatistics
   end
 
   def worst_season(team_id)
-    win_hash(team_id)
-    worst = @win_count.min_by do |season, games|
-      @win_count[season].first / @win_count[season].last.to_f
+    results = win_hash(team_id)
+    worst = results.min_by do |season, games|
+      results[season].first / results[season].last.to_f
     end
     math = worst[0].to_i
     math += 1
