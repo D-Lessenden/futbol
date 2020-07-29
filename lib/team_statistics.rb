@@ -118,14 +118,20 @@ class TeamStatistics
     fav_opp = average_win_percentage_by_opponents_of(team_id).max_by do |opp_id, win_percent|
      win_percent
     end
-    find_team_name(fav_opp.first, @teams)
+    find_team_name(fav_opp.first)
+  end
+
+  def find_team_name(team_id)
+    @teams.find do |team|
+      team.team_id == team_id
+    end.teamname
   end
 
   def rival(team_id)
     not_fav_opp = average_win_percentage_by_opponents_of(team_id).min_by do |opp_id, win_percent|
       win_percent
     end
-    find_team_name(not_fav_opp.first, @teams)
+    find_team_name(not_fav_opp.first)
   end
 
   def average_win_percentage_by_opponents_of(team_id)

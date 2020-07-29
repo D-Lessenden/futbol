@@ -12,11 +12,13 @@ class TeamStatisticsTest < Minitest::Test
       game_teams: game_teams_path
     }
     @stat_tracker = StatTracker.from_csv(locations)
-    @games = @stat_tracker.games
-    @teams = @stat_tracker.teams
-    @game_teams = @stat_tracker.game_teams
-
-    @team_statistics = TeamStatistics.new(@games, @teams, @game_teams)
+    @csv_data = CSVData.new(locations)
+    @team_statistics = @csv_data.team_statistics
+    # @games = @stat_tracker.games
+    # @teams = @stat_tracker.teams
+    # @game_teams = @stat_tracker.game_teams
+    #
+    # @team_statistics = TeamStatistics.new(@games, @teams, @game_teams)
   end
 
   def test_it_exists
@@ -115,8 +117,8 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_team_name
-    assert_equal "Minnesota United FC", @team_statistics.find_team_name("18", @teams)
-    assert_equal "Reign FC", @team_statistics.find_team_name("54", @teams)
+    assert_equal "Minnesota United FC", @team_statistics.find_team_name("18")
+    assert_equal "Reign FC", @team_statistics.find_team_name("54")
   end
 
   def test_it_pair_goals_scored_with_each_instance

@@ -8,12 +8,6 @@ module Calculatable
     num1 + num2
   end
 
-  def find_team_name(team_id, teams_csv)
-    teams_csv.find do |team|
-      team.team_id == team_id
-    end.teamname
-  end
-
   def select_teams(id, csv_datas)
     result = csv_datas.select do |csv_data|
       csv_data.team_id == id
