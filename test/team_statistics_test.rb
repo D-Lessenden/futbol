@@ -26,12 +26,11 @@ class TeamStatisticsTest < Minitest::Test
     @team_statistics = TeamStatistics.new(@games, @teams, @game_teams)
   end
   def test_it_exists
-    # skip
     assert_instance_of TeamStatistics, @team_statistics
   end
 
   def test_it_can_identify_favorite_opponent
-    skip
+    # skip
   assert_equal "DC United", @team_statistics.favorite_opponent("18")
   end
 
