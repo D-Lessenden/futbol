@@ -169,13 +169,6 @@ class StatTrackerTest < MiniTest::Test
     assert_equal expected, @stat_tracker.team_info("18")
   end
 
-
-   def test_game_ids_by_season
-     assert_equal 6, @stat_tracker.game_ids_by_season.keys.count
-     assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.game_ids_by_season.keys
-     assert_equal 806, @stat_tracker.game_ids_by_season["20122013"].count
-   end
-
    def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
    end
