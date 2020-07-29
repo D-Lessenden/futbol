@@ -1,22 +1,9 @@
+require "./lib/csv_data"
 require "./test/test_helper"
-
 
 class GameTest < Minitest::Test
 
   def setup
-    row = {
-      :game_id => "2014030412",
-      :season => "20142015",
-      :type => "Postseason",
-      :date_time => "6/6/15",
-      :away_team_id => "16",
-      :home_team_id => "14",
-      :away_goals => 3,
-      :home_goals => 2,
-      :venue => "Audi Field",
-      :venue_link => "/api/v1/venues/null"
-      }
-
       game_path = './data/games.csv'
       team_path = './data/teams.csv'
       game_teams_path = './data/game_teams.csv'
@@ -27,8 +14,8 @@ class GameTest < Minitest::Test
         game_teams: game_teams_path
       }
         stat_tracker = StatTracker.new(locations)
-        stat_tracker.games
-        @games = Games.new(row)
+        
+        @games = Games.new()
   end
 
   def test_it_exists
