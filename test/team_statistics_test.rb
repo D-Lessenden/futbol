@@ -115,9 +115,8 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_team_name
-    skip
-    assert_equal "Minnesota United FC", @team_statistics.find_team_name("18")
-    assert_equal "Reign FC", @team_statistics.find_team_name("54")
+    assert_equal "Minnesota United FC", @team_statistics.find_team_name("18", @teams)
+    assert_equal "Reign FC", @team_statistics.find_team_name("54", @teams)
   end
 
 
