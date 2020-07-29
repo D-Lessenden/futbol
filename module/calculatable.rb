@@ -67,5 +67,11 @@ module Calculatable
     average_win_percentage
   end
 
+  def find_team_name(team_id, teams_csv)
+    teams_csv.find do |team|
+      team.team_id == team_id
+    end.teamname
+  end
+
 
 end
