@@ -340,12 +340,6 @@ class StatTrackerTest < MiniTest::Test
   assert_equal ["16", 0.3042362002567394], @stat_tracker.team_accuracy("20132014").first
   end
 
-  def test_games_by_team
-
-  assert_equal 8, @stat_tracker.games_by_team("18").first.shots
-  end
-
-  ######################################
   def test_it_pair_goals_scored_with_each_instance
 
   assert_equal [2, 3, 1, 0, 5, 4, 7], @stat_tracker.team_goals("18").keys
