@@ -176,13 +176,6 @@ class StatTrackerTest < MiniTest::Test
      assert_equal 806, @stat_tracker.game_ids_by_season["20122013"].count
    end
 
-   def test_games_by_season
-     assert_equal 6, @stat_tracker.games_by_season.count
-     assert_equal 2, @stat_tracker.games_by_season["20122013"].first.goals
-     assert_equal "3", @stat_tracker.games_by_season["20122013"].first.team_id
-     assert_equal "LOSS", @stat_tracker.games_by_season["20122013"].first.result
-   end
-
    def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
    end
