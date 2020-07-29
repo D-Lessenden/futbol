@@ -205,14 +205,6 @@ class StatTrackerTest < MiniTest::Test
   assert_equal "DC United", @stat_tracker.favorite_opponent("18")
   end
 
-  # def test_it_can_find_all_opponents
-  #   assert_equal 31, @stat_tracker.opponents_of("18").count
-  #   assert_equal Hash, @stat_tracker.opponents_of("18").class
-  #
-  #   assert_equal 30, @stat_tracker.opponents_of("54").count
-  #   assert_equal Hash, @stat_tracker.opponents_of("54").class
-  # end
-
   # def test_it_can_find_team_name
   #   assert_equal "Minnesota United FC", @stat_tracker.find_team_name("18")
   #   assert_equal "Reign FC", @stat_tracker.find_team_name("54")
