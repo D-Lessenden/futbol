@@ -139,5 +139,4 @@ class TeamStatistics
   def opponents_of(team_id)
     opponents_hash_count(team_id, @games)
   end
-  
 end

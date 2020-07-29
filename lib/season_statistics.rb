@@ -1,7 +1,7 @@
-#require_relative "./stat_tracker"
 require "./lib/stat_tracker"
-
+require "./module/calculatable"
 class SeasonStatistics
+  include Calculatable
 
   def initialize(games, teams, game_teams)
     @games = games
@@ -78,14 +78,14 @@ class SeasonStatistics
     games_per_season_per_team(seasonID)
     team_accuracy(seasonID)
     best_team = team_accuracy(seasonID).max_by {|team_id, accuracy| accuracy}
-    @teams.find {|team| team.team_id == best_team[0]}.teamname
+    find_team_name(best_team.first, @teams)
   end
 
   def least_accurate_team(seasonID)
     games_per_season_per_team(seasonID)
     team_accuracy(seasonID)
     worst_team = team_accuracy(seasonID).min_by {|team_id, accuracy| accuracy}
-    @teams.find {|team| team.team_id == worst_team[0]}.teamname
+    find_team_name(worst_team.first, @teams)
   end
 
   def team_tackles(seasonID)
@@ -102,13 +102,13 @@ class SeasonStatistics
     games_per_season_per_team(seasonID)
     team_tackles(seasonID)
     fewest = team_tackles(seasonID).min_by {|k, v| v}
-    @teams.find {|team| team.team_id == fewest.first}.teamname
+    find_team_name(fewest.first, @teams)
   end
 
   def most_tackles(seasonID)
     games_per_season_per_team(seasonID)
     team_tackles(seasonID)
     most = team_tackles(seasonID).max_by {|k, v| v}
-    @teams.find {|team| team.team_id == most.first}.teamname
+    find_team_name(most.first, @teams)
   end
 end
