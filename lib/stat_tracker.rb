@@ -232,7 +232,7 @@ class StatTracker
   end
 
   def games_teams_by_seasons_per_coach(season_id)
-   x = scoped_season_games(season_id).map do |game|
+    scoped_season_games(season_id).map do |game|
       @game_teams.find_all do |game_team|
         game_team.game_id == game.game_id
       end
