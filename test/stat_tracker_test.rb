@@ -205,12 +205,6 @@ class StatTrackerTest < MiniTest::Test
   assert_equal "DC United", @stat_tracker.favorite_opponent("18")
   end
 
-  # def test_it_can_find_team_name
-  #   assert_equal "Minnesota United FC", @stat_tracker.find_team_name("18")
-  #   assert_equal "Reign FC", @stat_tracker.find_team_name("54")
-  # end
-
-
   def test_it_can_find_rival
     assert_equal "Houston Dash", @stat_tracker.rival("18")
 
