@@ -26,24 +26,20 @@ class TeamStatisticsTest < Minitest::Test
     @team_statistics = TeamStatistics.new(@games, @teams, @game_teams)
   end
   def test_it_exists
-    skip
     assert_instance_of TeamStatistics, @team_statistics
   end
 
   def test_it_can_identify_favorite_opponent
-    skip
     assert_equal "DC United", @team_statistics.favorite_opponent("18")
   end
 
   def test_it_can_find_rival
-    skip
     assert_equal "Houston Dash", @team_statistics.rival("18")
 
   end
 
 
   def test_it_can_calculate_average_win_percentage
-    skip
     expected = {
        "19"=>0.4411764705882353,
        "52"=>0.45161290322580644,
@@ -80,7 +76,6 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_count_games_won_against_opponents
-    skip
     expected = {
      "19"=>15,
      "52"=>14,
@@ -118,7 +113,6 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_all_opponents
-    skip
     assert_equal 31, @team_statistics.opponents_of("18").count
     assert_equal Hash, @team_statistics.opponents_of("18").class
 
@@ -127,7 +121,6 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_team_name
-    skip
     assert_equal "Minnesota United FC", @team_statistics.find_team_name("18", @teams)
     assert_equal "Reign FC", @team_statistics.find_team_name("54", @teams)
   end
