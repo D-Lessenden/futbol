@@ -174,6 +174,12 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal "2012030221", @team_statistics.season_games.first.game_id
   end
 
+  def test_team_games_per_season
+    @team_statistics.team_games_per_season("6")
+    assert_equal 70, @team_statistics.team_games_per_season("6")["2012"].count
+    assert_equal 94, @team_statistics.team_games_per_season("6")["2017"].count
+  end
+
 
 
 
