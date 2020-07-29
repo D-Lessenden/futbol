@@ -212,7 +212,11 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal "20142015", @team_statistics.worst_season("6")
   end
 
+  def test_it_can_calculate_average_win_percentage
+    assert_equal 0.44, @team_statistics.average_win_percentage("16")
+    assert_equal 0.48, @team_statistics.average_win_percentage("5")
 
+  end
 
 
 end
