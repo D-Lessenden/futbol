@@ -1,43 +1,14 @@
-require "CSV"
-require_relative "./games"
-require_relative "./teams"
-require_relative "./game_teams"
+require "./lib/csv_data"
 
 class StatTracker
-  attr_reader :games, :game_teams, :teams
 
   def self.from_csv(locations)
     StatTracker.new(locations)
   end
 
   def initialize(locations)
-    @games ||= turn_games_csv_data_into_games_objects(locations[:games])
-    @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
-    @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
-  end
-
-  def turn_games_csv_data_into_games_objects(games_csv_data)
-    games_objects_collection = []
-    CSV.foreach(games_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
-      games_objects_collection << Games.new(row)
-    end
-    games_objects_collection
-  end
-
-  def turn_teams_csv_data_into_teams_objects(teams_csv_data)
-    teams_objects_collection = []
-    CSV.foreach(teams_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
-      teams_objects_collection << Teams.new(row)
-    end
-    teams_objects_collection
-  end
-
-  def turn_game_teams_csv_data_into_game_teams_objects(game_teams_csv_data)
-    game_teams_objects_collection = []
-    CSV.foreach(game_teams_csv_data, headers: true, header_converters: :symbol, row_sep: :auto) do |row|
-      game_teams_objects_collection << GameTeams.new(row)
-    end
-    game_teams_objects_collection
+    csv_data = CSVData.new(locations)
+    @games_statistics = csv_data.games_statistics
   end
 
   def count_of_teams
@@ -467,6 +438,39 @@ class StatTracker
       win_percent
     end
     find_team_name(not_fav_opp[0])
+  end
+
+#############################
+  def highest_total_score
+   @games_statistics.highest_total_score
+  end
+
+  def lowest_total_score
+    @games_statistics.lowest_total_score
+  end
+
+  def percentage_home_wins
+   @games_statistics.percentage_home_wins
+  end
+
+  def percentage_visitor_wins
+    @games_statistics.percentage_visitor_wins
+  end
+
+  def percentage_ties
+   @games_statistics.percentage_ties
+  end
+
+  def count_of_games_by_season
+    @games_statistics.count_of_games_by_season
+  end
+
+  def average_goals_per_game
+   @games_statistics.average_goals_per_game
+  end
+
+  def average_goals_by_season
+    @games_statistics.average_goals_by_season
   end
 
 end#class
