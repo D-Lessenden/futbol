@@ -137,6 +137,10 @@ class TeamStatisticsTest < Minitest::Test
   assert_equal [2, 3, 1, 0, 5, 4, 7], @team_statistics.team_goals("18").keys
   end
 
+  def test_it_can_find_fewest_goals_scored_for_team
+    assert_equal 0, @team_statistics.fewest_goals_scored("18")
+  end
+
 
 
 
