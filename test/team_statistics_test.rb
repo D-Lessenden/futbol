@@ -1,11 +1,4 @@
-require "minitest/autorun"
-require "minitest/pride"
-require "mocha/minitest"
-require "./lib/stat_tracker"
-require "./lib/team_statistics"
-require "./lib/games"
-require "./lib/teams"
-require "./lib/game_teams"
+require "./test/test_helper"
 
 class TeamStatisticsTest < Minitest::Test
   def setup
@@ -25,6 +18,7 @@ class TeamStatisticsTest < Minitest::Test
 
     @team_statistics = TeamStatistics.new(@games, @teams, @game_teams)
   end
+
   def test_it_exists
     assert_instance_of TeamStatistics, @team_statistics
   end
