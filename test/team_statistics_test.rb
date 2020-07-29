@@ -168,6 +168,12 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal "LOSS", @team_statistics.games_by_season["20122013"].first.result
   end
 
+  def test_season_games
+    assert_equal 14882, @team_statistics.season_games.count
+    assert_equal "John Tortorella", @team_statistics.season_games.first.head_coach
+    assert_equal "2012030221", @team_statistics.season_games.first.game_id
+  end
+
 
 
 
