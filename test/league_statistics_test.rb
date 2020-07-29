@@ -13,7 +13,10 @@ class LeagueStatisticsTest < MiniTest::Test
       game_teams: game_teams_path
     }
 
-    @league_statistics = LeagueStatistics.new(locations)
+    @stat_tracker = StatTracker.from_csv(locations)
+    @csv_data = CSVData.new(locations)
+    @league_statistics = @csv_data.league_statistics
+
   end
 
   def test_it_exists

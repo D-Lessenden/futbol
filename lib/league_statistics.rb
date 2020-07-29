@@ -7,7 +7,7 @@ class LeagueStatistics
   end
 
   def count_of_teams
-    teams.count
+    @teams.count
   end
 
   def best_offense
@@ -32,7 +32,7 @@ class LeagueStatistics
   end
 
   def highest_scoring_home_team
-    goals #WE CAN DELETE THIS
+    goals
     id = goals.max_by {|key, value| value}
       @teams.find {|team| team.team_id == id[0]}.teamname
   end
@@ -52,7 +52,7 @@ class LeagueStatistics
     @teams.find {|team| team.team_id == id[0]}.teamname
   end
 
-# HELPER METHODS
+#----- HELPER METHODS ------#
   def team_by_id
     team_by_id = @game_teams.group_by do |team|
       team.team_id
