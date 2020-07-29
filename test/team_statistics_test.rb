@@ -161,6 +161,13 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 806, @team_statistics.game_ids_by_season["20122013"].count
   end
 
+  def test_games_by_season
+    assert_equal 6, @team_statistics.games_by_season.count
+    assert_equal 2, @team_statistics.games_by_season["20122013"].first.goals
+    assert_equal "3", @team_statistics.games_by_season["20122013"].first.team_id
+    assert_equal "LOSS", @team_statistics.games_by_season["20122013"].first.result
+  end
+
 
 
 
