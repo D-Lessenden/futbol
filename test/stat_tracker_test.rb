@@ -218,42 +218,6 @@ class StatTrackerTest < MiniTest::Test
   #   assert_equal "Reign FC", @stat_tracker.find_team_name("54")
   # end
 
-  # def test_it_can_count_games_won_against_opponents
-  #   expected = {
-  #    "19"=>15,
-  #    "52"=>14,
-  #    "21"=>14,
-  #    "16"=>18,
-  #    "1"=>5,
-  #    "29"=>7,
-  #    "8"=>4,
-  #    "23"=>6,
-  #    "15"=>3,
-  #    "25"=>13,
-  #    "20"=>6,
-  #    "28"=>11,
-  #    "24"=>13,
-  #    "5"=>4,
-  #    "2"=>5,
-  #    "7"=>6,
-  #    "14"=>8,
-  #    "22"=>12,
-  #    "3"=>4,
-  #    "10"=>2,
-  #    "9"=>6,
-  #    "26"=>7,
-  #    "6"=>4,
-  #    "12"=>3,
-  #    "30"=>10,
-  #    "27"=>2,
-  #    "17"=>4,
-  #    "53"=>6,
-  #    "4"=>3,
-  #    "54"=>1,
-  #    "13"=>1}
-  #   assert_equal expected, @stat_tracker.games_won_by_team("18")
-  #
-  # end
 
   def test_it_can_find_rival
     assert_equal "Houston Dash", @stat_tracker.rival("18")
