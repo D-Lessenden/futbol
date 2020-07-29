@@ -180,6 +180,30 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 94, @team_statistics.team_games_per_season("6")["2017"].count
   end
 
+  def test_it_can_create_a_win_hash
+    expected = {
+        "2012"=>[38, 71],
+      "2016"=>[33, 86],
+      "2014"=>[44, 105],
+      "2015"=>[43, 89],
+      "2013"=>[47, 101],
+      "2017"=>[31, 82]
+      }
+    assert_equal expected, @team_statistics.win_hash("16")
+
+    expected2 = {
+        "2012"=>[38, 70],
+        "2016"=>[45, 88],
+        "2014"=>[31, 82],
+        "2015"=>[33, 82],
+        "2013"=>[54, 94],
+        "2017"=>[50, 94]
+        }
+
+  assert_equal expected2, @team_statistics.win_hash("6")
+
+  end
+
 
 
 
