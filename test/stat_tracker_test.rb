@@ -183,12 +183,6 @@ class StatTrackerTest < MiniTest::Test
      assert_equal "LOSS", @stat_tracker.games_by_season["20122013"].first.result
    end
 
-   def test_season_games
-     assert_equal 14882, @stat_tracker.season_games.count
-     assert_equal "John Tortorella", @stat_tracker.season_games.first.head_coach
-     assert_equal "2012030221", @stat_tracker.season_games.first.game_id
-   end
-
    def test_best_season
     assert_equal "20132014", @stat_tracker.best_season("6")
    end
