@@ -107,7 +107,6 @@ class TeamStatisticsTest < Minitest::Test
   end
 
   def test_it_can_find_all_opponents
-    skip
     assert_equal 31, @team_statistics.opponents_of("18").count
     assert_equal Hash, @team_statistics.opponents_of("18").class
 
