@@ -218,5 +218,11 @@ class TeamStatisticsTest < Minitest::Test
 
   end
 
+  def test_it_can_retrieve_team_info_from_team_id
+    expected = {"team_id" => "18", "franchise_id" => "34", "team_name" => "Minnesota United FC", "abbreviation" => "MIN", "link" => "/api/v1/teams/18" }
+
+    assert_equal expected, @team_statistics.team_info("18")
+  end
+
 
 end
