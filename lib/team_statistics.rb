@@ -17,9 +17,9 @@ class TeamStatistics
   end
 
   def best_season(team_id)
-    win_hash(team_id)
-    best = @win_count.max_by do |season, games|
-      @win_count[season].first / @win_count[season].last.to_f
+    results = win_hash(team_id)
+    best = results.max_by do |season, games|
+      results[season].first / results[season].last.to_f
     end
     math = best[0].to_i
     math += 1
@@ -39,7 +39,7 @@ class TeamStatistics
   end
 
   def win_hash(team_id)
-    @win_count = Hash.new(0)
+    win_count = Hash.new(0)
     team_games_per_season(team_id).each do |season, games|
       count = 0
       total = 0
@@ -50,10 +50,10 @@ class TeamStatistics
           else
             total += 1
           end
-      @win_count[season] = [count, total]
+      win_count[season] = [count, total]
       end
     end
-    @win_count
+    win_count
   end
 
   def team_games_per_season(team_id)
