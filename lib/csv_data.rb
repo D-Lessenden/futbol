@@ -6,6 +6,7 @@ require "./lib/team_statistics"
 
 class CSVData
  attr_reader  :team_statistics
+ 
  def initialize(locations)
    @games ||= turn_games_csv_data_into_games_objects(locations[:games])
    @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])

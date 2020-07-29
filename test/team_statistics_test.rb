@@ -14,11 +14,6 @@ class TeamStatisticsTest < Minitest::Test
     @stat_tracker = StatTracker.from_csv(locations)
     @csv_data = CSVData.new(locations)
     @team_statistics = @csv_data.team_statistics
-    # @games = @stat_tracker.games
-    # @teams = @stat_tracker.teams
-    # @game_teams = @stat_tracker.game_teams
-    #
-    # @team_statistics = TeamStatistics.new(@games, @teams, @game_teams)
   end
 
   def test_it_exists
