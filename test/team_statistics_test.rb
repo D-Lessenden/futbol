@@ -33,6 +33,12 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal "DC United", @team_statistics.favorite_opponent("18")
   end
 
+  def test_it_can_find_rival
+    assert_equal "Houston Dash", @team_statistics.rival("18")
+
+  end
+
+
   def test_it_can_calculate_average_win_percentage
     expected = {
        "19"=>0.4411764705882353,
