@@ -145,6 +145,11 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal 7, @team_statistics.most_goals_scored("18")
   end
 
+  def test_games_by_team
+
+  assert_equal 8, @team_statistics.games_by_team("18").first.shots
+  end
+
 
 
 
