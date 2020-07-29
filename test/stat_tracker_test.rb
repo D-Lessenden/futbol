@@ -408,8 +408,12 @@ class StatTrackerTest < MiniTest::Test
 #   assert_equal ["3", 2.13], @stat_tracker.average_goals_all_seasons_by_id.first
 #   end
 
-  def test_scoped_season_games
-    assert_equal 1319, @stat_tracker.scoped_season_games("20142015").count
-    assert_equal 1323, @stat_tracker.scoped_season_games("20132014").count 
-  end
+  # def test_scoped_season_games
+  #   assert_equal 1319, @stat_tracker.scoped_season_games("20142015").count
+  #   assert_equal 1323, @stat_tracker.scoped_season_games("20132014").count 
+  # end
+  # def test_games_teams_by_seasons_per_coach
+  #   assert_equal "Joel Quenneville", @stat_tracker.games_teams_by_seasons_per_coach("20142015").keys.first
+  # end
+
 end
