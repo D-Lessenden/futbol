@@ -155,6 +155,12 @@ class TeamStatisticsTest < Minitest::Test
     assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @team_statistics.season_hash.keys
   end
 
+  def test_game_ids_by_season
+    assert_equal 6, @team_statistics.game_ids_by_season.keys.count
+    assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @team_statistics.game_ids_by_season.keys
+    assert_equal 806, @team_statistics.game_ids_by_season["20122013"].count
+  end
+
 
 
 
