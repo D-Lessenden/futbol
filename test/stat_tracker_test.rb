@@ -20,14 +20,16 @@ class StatTrackerTest < MiniTest::Test
     assert_instance_of StatTracker, @stat_tracker
   end
 
+
   def test_can_find_percentage_ties
      assert_equal 0.20, @stat_tracker.percentage_ties
-   end
+  end
 
   def test_find_the_fewest_tackles
     assert_equal "Atlanta United", @stat_tracker.fewest_tackles("20132014")
     assert_equal "Orlando City SC", @stat_tracker.fewest_tackles("20142015")
   end
+
 
   def test_it_can_calculate_the_lowest_total_score
     assert_equal 0, @stat_tracker.lowest_total_score
@@ -68,6 +70,47 @@ class StatTrackerTest < MiniTest::Test
 
   def test_highest_scoring_home_team
     assert_equal "Reign FC", @stat_tracker.highest_scoring_home_team
+  end
+  
+  def test_lowest_scoring_home_team
+    assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
+  end
+
+  def test_goals
+    assert_equal 32, @stat_tracker.goals.keys.count
+    assert_equal 2.1018867924528304, @stat_tracker.goals["3"]
+    assert_equal 2.3884892086330933, @stat_tracker.goals["5"]
+  end
+
+  def test_season_hash
+    assert_equal 6, @stat_tracker.season_hash.keys.count
+    assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.season_hash.keys
+  end
+
+  def test_it_can_create_an_away_goals_and_team_id_hash
+    assert_equal 32, @stat_tracker.total_goals_by_away_team.count
+    assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
+    assert_equal 458, @stat_tracker.total_goals_by_away_team["20"]
+  end
+
+  def test_it_can_create_hash_with_total_games_played_by_away_team
+    assert_equal 32, @stat_tracker.away_teams_game_count_by_team_id.count
+    assert_equal Hash, @stat_tracker.away_teams_game_count_by_team_id.class
+    assert_equal 266, @stat_tracker.away_teams_game_count_by_team_id["3"]
+    assert_nil @stat_tracker.away_teams_game_count_by_team_id["56"]
+  end
+
+  def test_it_can_find_highest_total_goals_by_away_team
+    assert_equal String, @stat_tracker.highest_total_goals_by_away_team[0].class
+    assert_equal Integer, @stat_tracker.highest_total_goals_by_away_team[1].class
+    assert_equal 2, @stat_tracker.highest_total_goals_by_away_team.count
+    assert_equal Array, @stat_tracker.highest_total_goals_by_away_team.class
+  end
+
+  def test_it_can_calculate_overal_average_by_team
+    assert_equal 32, @stat_tracker.overall_average_scores_by_away_team.count
+    assert_equal Hash, @stat_tracker.overall_average_scores_by_away_team.class
+    assert_equal 2.2450592885375493, @stat_tracker.overall_average_scores_by_away_team["6"]
   end
 
    def test_highest_scoring_home_team
@@ -211,5 +254,45 @@ class StatTrackerTest < MiniTest::Test
   def test_average_goals_all_seasons_by_id
 
   assert_equal ["3", 2.13], @stat_tracker.average_goals_all_seasons_by_id.first
+  end
+
+  def test_it_can_find_highest_total_score
+    assert_equal 11, @stat_tracker.highest_total_score
+  end
+
+  def test_it_can_calculate_the_lowest_total_score
+    assert_equal 0, @stat_tracker.lowest_total_score
+  end
+
+  def test_it_can_find_percentage_home_wins
+    assert_equal 0.44, @stat_tracker.percentage_home_wins
+  end
+
+  def test_it_can_find_percentage_visitor_wins
+    assert_equal 0.36, @stat_tracker.percentage_visitor_wins
+  end
+
+  def test_can_find_percentage_ties
+    assert_equal 0.20, @stat_tracker.percentage_ties
+  end
+
+  def test_count_games_by_season
+    expected = {"20122013" => 806,
+                "20162017" => 1317,
+                "20142015" => 1319,
+                "20152016" => 1321,
+                "20132014" => 1323,
+                "20172018" => 1355
+                }
+    assert_equal expected, @stat_tracker.count_of_games_by_season
+  end
+
+  def test_average_goals_per_game
+    assert_equal 4.22, @stat_tracker.average_goals_per_game
+  end
+
+  def test_average_goals_by_season
+    expected = {"20122013" => 4.12, "20162017" => 4.23, "20142015" => 4.14, "20152016" => 4.16, "20132014" => 4.19, "20172018" => 4.44 }
+    assert_equal expected, @stat_tracker.average_goals_by_season
   end
 end

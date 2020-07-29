@@ -2,17 +2,19 @@ require "CSV"
 require "./lib/games"
 require "./lib/teams"
 require "./lib/game_teams"
+require "./lib/games_statistics"
 require "./lib/season_statistics"
 require "./lib/league_statistics"
 require "./lib/team_statistics"
 
 class CSVData
- attr_reader  :league_statistics, :team_statistics, :season_statistics
+ attr_reader  :league_statistics, :team_statistics, :season_statistics, :games_statistics
 
  def initialize(locations)
    @games ||= turn_games_csv_data_into_games_objects(locations[:games])
    @teams ||= turn_teams_csv_data_into_teams_objects(locations[:teams])
    @game_teams ||= turn_game_teams_csv_data_into_game_teams_objects(locations[:game_teams])
+   @games_statistics = GamesStatistics.new(@games, @teams, @game_teams)
    @season_statistics = SeasonStatistics.new(@games, @teams, @game_teams)
    @league_statistics = LeagueStatistics.new(@games, @teams, @game_teams)
    @team_statistics = TeamStatistics.new(@games, @teams, @game_teams)
@@ -43,3 +45,7 @@ class CSVData
  end
 
 end
+
+
+
+
