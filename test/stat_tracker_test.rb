@@ -95,11 +95,6 @@ class StatTrackerTest < MiniTest::Test
      assert_equal "Utah Royals FC", @stat_tracker.lowest_scoring_home_team
    end
 
-   def test_season_hash
-     assert_equal 6, @stat_tracker.season_hash.keys.count
-     assert_equal ["20122013", "20162017", "20142015", "20152016", "20132014", "20172018"], @stat_tracker.season_hash.keys
-   end
-
   def test_it_can_create_an_away_goals_and_team_id_hash
     assert_equal 32, @stat_tracker.total_goals_by_away_team.count
     assert_equal Hash, @stat_tracker.total_goals_by_away_team.class
