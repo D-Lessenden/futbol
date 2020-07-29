@@ -305,7 +305,7 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_find_most_goals_scored_for_team
     assert_equal 7, @stat_tracker.most_goals_scored("18")
   end
-######################################
+
   def test_it_can_find_fewest_goals_scored_for_team
     assert_equal 0, @stat_tracker.fewest_goals_scored("18")
   end
@@ -338,11 +338,6 @@ class StatTrackerTest < MiniTest::Test
   def test_it_can_return_accuracy_for_each_team
 
   assert_equal ["16", 0.3042362002567394], @stat_tracker.team_accuracy("20132014").first
-  end
-
-  def test_it_pair_goals_scored_with_each_instance
-
-  assert_equal [2, 3, 1, 0, 5, 4, 7], @stat_tracker.team_goals("18").keys
   end
 
   def test_total_goals_by_id
