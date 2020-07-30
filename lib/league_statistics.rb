@@ -1,4 +1,6 @@
+require_relative "./calculatable"
 class LeagueStatistics
+  include Calculatable
 
   def initialize(games, teams, game_teams)
     @games = games
@@ -52,7 +54,6 @@ class LeagueStatistics
     @teams.find {|team| team.team_id == id[0]}.teamname
   end
 
-#----- HELPER METHODS ------#
   def team_by_id
     team_by_id = @game_teams.group_by do |team|
       team.team_id
