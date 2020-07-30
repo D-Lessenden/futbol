@@ -1,4 +1,4 @@
-require "./lib/csv_data"
+require_relative "./csv_data"
 
 class StatTracker
 

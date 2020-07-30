@@ -1,5 +1,5 @@
-require "./lib/stat_tracker"
-require "./module/calculatable"
+require_relative "./calculatable"
+
 class SeasonStatistics
   include Calculatable
 

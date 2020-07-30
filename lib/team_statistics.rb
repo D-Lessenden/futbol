@@ -1,4 +1,5 @@
-require "./module/calculatable"
+require_relative "./calculatable"
+
 class TeamStatistics
   include Calculatable
 

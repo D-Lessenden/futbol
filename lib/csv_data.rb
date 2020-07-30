@@ -1,11 +1,11 @@
 require "CSV"
-require "./lib/games"
-require "./lib/teams"
-require "./lib/game_teams"
-require "./lib/games_statistics"
-require "./lib/season_statistics"
-require "./lib/league_statistics"
-require "./lib/team_statistics"
+require_relative "./games"
+require_relative "./teams"
+require_relative "./game_teams"
+require_relative "./games_statistics"
+require_relative "./season_statistics"
+require_relative "./league_statistics"
+require_relative "./team_statistics"
 
 class CSVData
  attr_reader  :games, :teams, :game_teams, :league_statistics, :team_statistics, :season_statistics, :games_statistics
