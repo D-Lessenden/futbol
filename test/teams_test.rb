@@ -1,4 +1,3 @@
-require "./lib/csv_data"
 require "./test/test_helper"
 
 
