@@ -1,4 +1,5 @@
-require "./module/calculatable"
+require_relative "./calculatable"
+
 class GamesStatistics
   include Calculatable
   def initialize(games, teams, game_teams)
