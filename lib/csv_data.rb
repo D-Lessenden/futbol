@@ -8,7 +8,7 @@ require "./lib/league_statistics"
 require "./lib/team_statistics"
 
 class CSVData
- attr_reader  :league_statistics, :team_statistics, :season_statistics, :games_statistics
+ attr_reader  :games, :teams, :game_teams, :league_statistics, :team_statistics, :season_statistics, :games_statistics
 
  def initialize(locations)
    @games ||= turn_games_csv_data_into_games_objects(locations[:games])
@@ -45,7 +45,3 @@ class CSVData
  end
 
 end
-
-
-
-
